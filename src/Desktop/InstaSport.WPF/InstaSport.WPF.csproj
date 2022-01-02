@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows10.0.18362.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+		<PackageReference Include="Prism.Unity" Version="8.1.97" />
+		<PackageReference Include="Prism.Wpf" Version="8.1.97" />
+		<PackageReference Include="Telerik.Windows.Controls.for.Wpf.Xaml" Version="2021.3.1109" />
+		<PackageReference Include="Telerik.Windows.Controls.Input.for.Wpf.Xaml" Version="2021.3.1109" />
+		<PackageReference Include="Telerik.Windows.Controls.Navigation.for.Wpf.Xaml" Version="2021.3.1109" />
+		<PackageReference Include="Telerik.Windows.Data.for.Wpf.Xaml" Version="2021.3.1109" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Data\InstaSport.Data\InstaSport.Data.csproj" />
+		<ProjectReference Include="..\..\Services\InstaSport.Services.Data\InstaSport.Services.Data.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\GamesView.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Views\GamesView.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	    <SubType>Designer</SubType>
+	  </Page>
+	</ItemGroup>
+
+</Project>
