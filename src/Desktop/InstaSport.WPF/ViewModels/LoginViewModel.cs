@@ -1,6 +1,8 @@
 ﻿using InstaSport.Services.Data;
 using InstaSport.WPF.State;
+using InstaSport.WPF.Views;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ namespace InstaSport.WPF.ViewModels
 {
     public class LoginViewModel : BindableBase
     {
+        private readonly IRegionManager regionManager;
         private readonly IAuthenticator authenticator;
         private string email;
 
@@ -21,18 +24,15 @@ namespace InstaSport.WPF.ViewModels
             get { return this.email; }
             set
             {
-                if (this.email != value)
-                {
-                    this.email = value;
-                    this.RaisePropertyChanged();
-                }
+                this.SetProperty(ref this.email, value);
             }
         }
 
         public ICommand LoginCommand { get; }
 
-        public LoginViewModel(IAuthenticator authenticator)
+        public LoginViewModel(IRegionManager regionManager, IAuthenticator authenticator)
         {
+            this.regionManager = regionManager;
             this.authenticator = authenticator;
             this.LoginCommand = new DelegateCommand(OnLogin);
         }
@@ -40,6 +40,10 @@ namespace InstaSport.WPF.ViewModels
         private void OnLogin(object obj)
         {
             var success = this.authenticator.LogIn(this.email, obj.ToString());
+            if (success)
+            {
+                this.regionManager.RequestNavigate("MainRegion", nameof(GamesView));
+            }
         }
     }
 }

@@ -14,7 +14,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <telerik:Label Content="Games" FontSize="22" />
-        <telerik:RadCarousel Grid.Row="1" ItemsSource="{Binding Games}">
+        <telerik:RadCarousel Grid.Row="1" SelectedItem="{Binding SelectedGame, Mode=TwoWay}" ItemsSource="{Binding Games}">
             <telerik:RadCarousel.ItemsPanel>
                 <ItemsPanelTemplate>
                     <telerik:RadCarouselPanel ItemsPerPage="3" IsContinuous="True" />
@@ -35,6 +35,10 @@
                         <telerik:Label Content="{Binding Sport.Name, StringFormat=Sport: {0}}" />
                         <telerik:Label Grid.Column="1" Content="{Binding Location.Name, StringFormat=Location: {0}}" />
                         <telerik:Label Grid.Row="1" Content="{Binding Status, StringFormat=Status: {0}}" />
+                        <telerik:RadButton Grid.Row="1" Grid.Column="1" 
+                                           Content="Join" 
+                                           Command="{Binding DataContext.JoinGameCommand, RelativeSource={RelativeSource AncestorType=telerik:RadCarousel}}"
+                                           CommandParameter="{Binding Id}"/>
                         <telerik:RadProgressBar Grid.Row="2" Grid.ColumnSpan="2" Value="{Binding Players.Count, Mode=OneWay}" Maximum="{Binding MaxPlayers}" />
                     </Grid>
                 </DataTemplate>

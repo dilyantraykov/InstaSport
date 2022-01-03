@@ -32,6 +32,7 @@ namespace InstaSport.WPF.Views
         public LoginView()
         {
             InitializeComponent();
+            this.SetBinding(LoginView.LoginCommandProperty, new Binding("LoginCommand"));
         }
 
         private void RadButton_Click(object sender, RoutedEventArgs e)

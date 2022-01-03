@@ -3,17 +3,29 @@ using Prism.Mvvm;
 
 namespace InstaSport.WPF.Models
 {
-    public class NavigationItem
+    public class NavigationItem : BindableBase
     {
-        public NavigationItem(string title, string iconGlyph, BindableBase viewModel)
+        private bool isVisible;
+
+        public NavigationItem(string title, string iconGlyph, string view)
         {
             this.Title = title;
             this.IconGlyph = iconGlyph;
-            this.ViewModel = viewModel;
+            this.View = view;
+            this.IsVisible = true;
         }
 
         public string Title { get; set; }
         public string IconGlyph { get; set; }
-        public BindableBase ViewModel { get; set; }
+        public string View { get; set; }
+
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set
+            {
+                this.SetProperty(ref isVisible, value);
+            }
+        }
     }
 }

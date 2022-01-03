@@ -1,19 +1,37 @@
 ﻿using InstaSport.Data.Models;
 using InstaSport.Services.Data;
+using Prism.Mvvm;
 using System;
 
 namespace InstaSport.WPF.State
 {
-    public class Authenticator : IAuthenticator
+    public class Authenticator : BindableBase, IAuthenticator
     {
         private readonly IAuthenticationService authenticationService;
+        private User currentUser;
+
+        public event EventHandler? CurrentUserChanged;
 
         public Authenticator(IAuthenticationService authenticationService)
         {
             this.authenticationService = authenticationService;
         }
 
-        public User CurrentUser { get; private set; }
+        public User CurrentUser
+        {
+            get { return currentUser; }
+            private set
+            {
+                this.SetProperty(ref currentUser, value);
+                this.RaisePropertyChanged(nameof(IsLoggedIn));
+                this.OnCurrentUserChanged();
+            }
+        }
+
+        private void OnCurrentUserChanged()
+        {
+            this.CurrentUserChanged?.Invoke(this, new EventArgs());
+        }
 
         public bool IsLoggedIn => this.CurrentUser != null;
 
@@ -38,6 +56,7 @@ namespace InstaSport.WPF.State
         public void Register(string username, string email, string password, string confirmPassword)
         {
             authenticationService.Register(username, email, password, confirmPassword);
+            this.CurrentUser = authenticationService.Login(username, password);
         }
     }
 }

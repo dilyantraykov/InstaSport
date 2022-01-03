@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="InstaSport.WPF.Views.RegistrationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:local="clr-namespace:InstaSport.WPF.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <telerik:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
+    </UserControl.Resources>
+    <StackPanel>
+        <telerik:Label Content="Username:" />
+        <TextBox Text="{Binding UserName}" />
+        <telerik:Label Content="Email:" />
+        <TextBox Text="{Binding Email, ValidatesOnExceptions=True, NotifyOnValidationError=True}" />
+        <telerik:Label Content="Password:" />
+        <telerik:RadPasswordBox x:Name="PasswordBox" />
+        <telerik:Label Content="Confirm Password:" />
+        <telerik:RadPasswordBox x:Name="ConfirmPasswordBox" />
+        <telerik:RadButton IsDefault="True" Content="Register" IsEnabled="{Binding HasErrors, Converter={StaticResource InvertedBooleanConverter}}" Click="OnRegisterClick" />
+    </StackPanel>
+</UserControl>

@@ -9,7 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Regions;
+using System;
 using System.Windows;
+using System.Windows.Media;
 using Telerik.Windows.Controls;
 
 namespace InstaSport.WPF
@@ -32,12 +34,17 @@ namespace InstaSport.WPF
 
         protected override void OnInitialized()
         {
+            var font = new FontFamily(new Uri("pack://application:,,,/"), "./Fonts/#Font Awesome 5 Free Regular");
+            RadGlyph.RegisterFont(font, "FontAwesome");
+
             MainWindow shellWindow = Container.Resolve<MainWindow>();
             shellWindow.Show();
             this.MainWindow = shellWindow.ParentOfType<Window>();
-            //RegionManager.SetRegionManager(MainWindow, Container.Resolve<IRegionManager>());
-            //RegionManager.UpdateRegions();
+
+            RegionManager.SetRegionManager(MainWindow, Container.Resolve<IRegionManager>());
+            RegionManager.UpdateRegions();
             InitializeModules();
+
             base.OnInitialized();
         }
 
@@ -49,11 +56,17 @@ namespace InstaSport.WPF
             containerRegistry.Register<IDbRepository<Sport>, DbRepository<Sport>>();
             containerRegistry.Register<IDbRepository<User>, DbRepository<User>>();
             containerRegistry.Register<IPasswordHasher<User>, PasswordHasher<User>>();
-            containerRegistry.Register<IAuthenticator, Authenticator>();
+            containerRegistry.RegisterSingleton<IAuthenticator, Authenticator>();
             containerRegistry.Register<IAuthenticationService, AuthenticationService>();
             containerRegistry.Register<IGamesService, GamesService>();
             containerRegistry.Register<ILocationsService, LocationsService>();
             containerRegistry.Register<ISportsService, SportsService>();
+
+            containerRegistry.RegisterForNavigation<LoginView>();
+            containerRegistry.RegisterForNavigation<RegistrationView>();
+            containerRegistry.RegisterForNavigation<GamesView>();
+            containerRegistry.RegisterForNavigation<SportsView>();
+            containerRegistry.RegisterForNavigation<LocationsView>();
         }
     }
 }

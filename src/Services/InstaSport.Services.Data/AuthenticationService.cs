@@ -1,5 +1,7 @@
 ﻿using InstaSport.Data.Common;
 using InstaSport.Data.Models;
+using InstaSport.Services.Data.Constants;
+using InstaSport.Services.Data.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -25,9 +27,14 @@ namespace InstaSport.Services.Data
             }
         }
 
-        public User Login(string email, string password)
+        public User Login(string identicator, string password)
         {
-            var user = this.GetByEmail(email);
+            var user = this.GetByEmail(identicator);
+
+            if (user == null)
+            {
+                user = this.GetByUserName(identicator);
+            }
 
             if (user == null)
             {
@@ -48,13 +55,19 @@ namespace InstaSport.Services.Data
         {
             if (password != confirmPassword)
             {
-                throw new ArgumentException("Password is invalid!");
+                throw new InvalidPropertyException(StringConstants.Password, "Passwords do not match!");
             }
 
-            var user = this.GetByEmail(email);
+            var user = this.GetByUserName(username);
             if (user != null)
             {
-                throw new ArgumentException("This email is already registered!");
+                throw new InvalidPropertyException(StringConstants.UserName, "This username is already registered!");
+            }
+
+            user = this.GetByEmail(email);
+            if (user != null)
+            {
+                throw new InvalidPropertyException(StringConstants.Email, "This email is already registered!");
             }
 
             string hashedPassword = passwordHasher.HashPassword(user, password);
@@ -76,6 +89,11 @@ namespace InstaSport.Services.Data
         private User? GetByEmail(string email)
         {
             return this.users.All().FirstOrDefault(x => x.Email == email);
+        }
+
+        private User? GetByUserName(string userName)
+        {
+            return this.users.All().FirstOrDefault(x => x.UserName == userName);
         }
     }
 }

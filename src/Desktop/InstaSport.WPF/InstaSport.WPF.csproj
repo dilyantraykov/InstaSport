@@ -8,13 +8,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Fonts\FontAwesome5.otf" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Prism.DryIoc" Version="8.1.97" />
 		<PackageReference Include="Prism.Unity" Version="8.1.97" />
 		<PackageReference Include="Prism.Wpf" Version="8.1.97" />
-		<PackageReference Include="Telerik.Windows.Controls.for.Wpf.Xaml" Version="2021.3.1109" />
-		<PackageReference Include="Telerik.Windows.Controls.Input.for.Wpf.Xaml" Version="2021.3.1109" />
-		<PackageReference Include="Telerik.Windows.Controls.Navigation.for.Wpf.Xaml" Version="2021.3.1109" />
-		<PackageReference Include="Telerik.Windows.Data.for.Wpf.Xaml" Version="2021.3.1109" />
+		<PackageReference Include="Telerik.Windows.Controls.for.Wpf" Version="2021.3.1109" />
+		<PackageReference Include="Telerik.Windows.Controls.Input.for.Wpf" Version="2021.3.1109" />
+		<PackageReference Include="Telerik.Windows.Controls.Navigation.for.Wpf" Version="2021.3.1109" />
+		<PackageReference Include="Telerik.Windows.Data.for.Wpf" Version="2021.3.1109" />
+		<PackageReference Include="Telerik.Windows.Themes.Fluent.for.Wpf" Version="2021.3.1109" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -23,7 +28,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="Fonts\FontAwesome5.otf" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="Views\GamesView.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Views\RegistrationView.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
 	</ItemGroup>
@@ -33,6 +45,14 @@
 	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 	    <SubType>Designer</SubType>
 	  </Page>
+	  <Page Update="Views\RegistrationView.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	    <SubType>Designer</SubType>
+	  </Page>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Converters\" />
 	</ItemGroup>
 
 </Project>
