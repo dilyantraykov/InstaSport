@@ -19,6 +19,8 @@
 
         int AddPlayer(int gameId, User player);
 
+        int RemovePlayer(int gameId, User player);
+
         int Create(Game game);
 
         void Save();

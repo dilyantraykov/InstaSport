@@ -9,6 +9,7 @@
                    xmlns:navigation="clr-namespace:Telerik.Windows.Controls.Navigation;assembly=Telerik.Windows.Controls.Navigation"
                    navigation:RadWindowInteropHelper.ShowInTaskbar="True"
                    mc:Ignorable="d"
+                   WindowState="Maximized"
                    prism:ViewModelLocator.AutoWireViewModel="True"
                    Header="InstaSport" Height="450" Width="800">
     <telerik:RadWindow.Resources>

@@ -62,11 +62,14 @@ namespace InstaSport.WPF
             containerRegistry.Register<ILocationsService, LocationsService>();
             containerRegistry.Register<ISportsService, SportsService>();
 
+            // ...
+
             containerRegistry.RegisterForNavigation<LoginView>();
             containerRegistry.RegisterForNavigation<RegistrationView>();
             containerRegistry.RegisterForNavigation<GamesView>();
             containerRegistry.RegisterForNavigation<SportsView>();
             containerRegistry.RegisterForNavigation<LocationsView>();
+            containerRegistry.RegisterForNavigation<GameDetailsView>();
         }
     }
 }

@@ -10,15 +10,20 @@
     <UserControl.Resources>
         <telerik:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
     </UserControl.Resources>
-    <StackPanel>
-        <telerik:Label Content="Username:" />
-        <TextBox Text="{Binding UserName}" />
-        <telerik:Label Content="Email:" />
-        <TextBox Text="{Binding Email, ValidatesOnExceptions=True, NotifyOnValidationError=True}" />
-        <telerik:Label Content="Password:" />
-        <telerik:RadPasswordBox x:Name="PasswordBox" />
-        <telerik:Label Content="Confirm Password:" />
-        <telerik:RadPasswordBox x:Name="ConfirmPasswordBox" />
-        <telerik:RadButton IsDefault="True" Content="Register" IsEnabled="{Binding HasErrors, Converter={StaticResource InvertedBooleanConverter}}" Click="OnRegisterClick" />
-    </StackPanel>
+    <Grid Width="400" Background="#333"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center">
+        <StackPanel Margin="30">
+            <telerik:Label Content="Registration" HorizontalAlignment="Center" FontSize="30" Margin="0 0 0 20" />
+            <telerik:Label Content="Username:" />
+            <TextBox Text="{Binding UserName}" />
+            <telerik:Label Content="Email:" />
+            <TextBox Text="{Binding Email, ValidatesOnExceptions=True, NotifyOnValidationError=True}" />
+            <telerik:Label Content="Password:" />
+            <telerik:RadPasswordBox x:Name="PasswordBox" />
+            <telerik:Label Content="Confirm Password:" />
+            <telerik:RadPasswordBox x:Name="ConfirmPasswordBox" />
+            <telerik:RadButton Margin="0 20 0 0" IsDefault="True" Content="Register" IsEnabled="{Binding HasErrors, Converter={StaticResource InvertedBooleanConverter}}" Click="OnRegisterClick" />
+        </StackPanel>
+    </Grid>
 </UserControl>

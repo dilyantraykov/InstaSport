@@ -23,6 +23,15 @@
             return game.Players.Count;
         }
 
+        public int RemovePlayer(int gameId, User player)
+        {
+            var game = this.games.GetById(gameId);
+            game.Players.Remove(game.Players.FirstOrDefault(p => p.Id == player.Id));
+            this.games.Save();
+
+            return game.Players.Count;
+        }
+
         public int Create(Game game)
         {
             this.games.Add(game);

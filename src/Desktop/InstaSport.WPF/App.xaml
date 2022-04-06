@@ -8,10 +8,13 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Telerik.Windows.Themes.Fluent;component/Themes/System.Windows.xaml"/>
                 <ResourceDictionary Source="/Telerik.Windows.Themes.Fluent;component/Themes/Telerik.Windows.Controls.xaml"/>
+                <ResourceDictionary Source="/Telerik.Windows.Themes.Fluent;component/Themes/Telerik.Windows.Controls.DataVisualization.xaml"/>
                 <ResourceDictionary Source="/Telerik.Windows.Themes.Fluent;component/Themes/Telerik.Windows.Controls.Input.xaml"/>
                 <ResourceDictionary Source="/Telerik.Windows.Themes.Fluent;component/Themes/Telerik.Windows.Controls.Navigation.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="views:MainWindow" BasedOn="{StaticResource RadWindowStyle}" />
+            <Style TargetType="views:MainWindow" BasedOn="{StaticResource RadWindowStyle}">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </prism:PrismApplication>

@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using InstaSport.WPF.Models;
+using System.Windows.Controls;
+using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.Map;
 
 namespace InstaSport.WPF.Views
 {

@@ -8,6 +8,45 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <telerik:RadListBox ItemsSource="{Binding Locations}" DisplayMemberPath="Name" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <telerik:Label Content="Locations" FontSize="22" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <telerik:RadListBox x:Name="LocationsListBox" 
+                                SelectionMode="Single"
+                                SelectedItem="{Binding SelectedLocation, Mode=TwoWay}"
+                                ItemsSource="{Binding MapItems}" 
+                                DisplayMemberPath="Name">
+                <telerik:EventToCommandBehavior.EventBindings>
+                    <telerik:EventBinding EventName="SelectionChanged" 
+                                          Command="{Binding SelectCenterCommand}"
+                                          PassEventArgsToCommand="True" />
+                </telerik:EventToCommandBehavior.EventBindings>
+            </telerik:RadListBox>
+            <telerik:RadMap x:Name="Map" Center="{Binding CenterLocation, Mode=TwoWay}" MouseClickMode="None" ZoomLevel="14" Grid.Column="1">
+                <telerik:RadMap.Provider>
+                    <telerik:OpenStreetMapProvider Layer="Transport" APIKey="c7392a125b614cf7bb7fc5c9aef943c3" />
+                </telerik:RadMap.Provider>
+                <telerik:VirtualizationLayer ItemsSource="{Binding MapItems}">
+                    <telerik:VirtualizationLayer.ItemTemplate>
+                        <DataTemplate>
+                            <telerik:Pushpin telerik:MapLayer.Location="{Binding Location}">
+                                <telerik:EventToCommandBehavior.EventBindings>
+                                    <telerik:EventBinding EventName="MouseLeftButtonDown" 
+                                          Command="{Binding DataContext.SelectPinCommand, Source={x:Reference Map}}"
+                                          CommandParameter="{Binding Location}" />
+                                </telerik:EventToCommandBehavior.EventBindings>
+                            </telerik:Pushpin>
+                        </DataTemplate>
+                    </telerik:VirtualizationLayer.ItemTemplate>
+                </telerik:VirtualizationLayer>
+            </telerik:RadMap>
+        </Grid>
     </Grid>
 </UserControl>

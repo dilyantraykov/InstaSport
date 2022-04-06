@@ -24,16 +24,6 @@ namespace InstaSport.WPF.ViewModels
 
         public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
-        public string UserName
-        {
-            get { return this.username; }
-            set
-            {
-                this.ValidateUserName();
-                this.SetProperty(ref this.username, value);
-            }
-        }
-
         [EmailAddress(ErrorMessage = "Email address is invalid!")]
         public string Email
         {
@@ -70,6 +60,16 @@ namespace InstaSport.WPF.ViewModels
             catch (InvalidPropertyException ex)
             {
                 this.AddError(ex.Property, ex.Message);
+            }
+        }
+
+        public string UserName
+        {
+            get { return this.username; }
+            set
+            {
+                this.ValidateUserName();
+                this.SetProperty(ref this.username, value);
             }
         }
 

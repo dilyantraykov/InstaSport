@@ -80,8 +80,11 @@ namespace InstaSport.WPF.ViewModels
             Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
             {
                 var args = obj as SelectionChangedEventArgs;
-                var newItem = args.AddedItems[0] as NavigationItem;
-                this.regionManager.RequestNavigate(StringConstants.MainRegionName, newItem.View);
+                if (args != null && args.AddedItems.Count > 0)
+                {
+                    var newItem = args.AddedItems[0] as NavigationItem;
+                    this.regionManager.RequestNavigate(StringConstants.MainRegionName, newItem.View);
+                }
             }));
         }
 
