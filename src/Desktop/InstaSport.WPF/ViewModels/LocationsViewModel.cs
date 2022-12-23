@@ -1,6 +1,7 @@
 ﻿using InstaSport.Data.Models;
 using InstaSport.Services.Data;
 using InstaSport.WPF.Models;
+using InstaSport.WPF.Views;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
@@ -15,6 +16,7 @@ namespace InstaSport.WPF.ViewModels
 {
     public class LocationsViewModel : BindableBase
     {
+        private IRegionManager regionManager;
         private ILocationsService locationsService;
         private IEnumerable<MapItem> mapItems;
         private ObservableCollection<Location> locations;
@@ -59,9 +61,11 @@ namespace InstaSport.WPF.ViewModels
 
         public ICommand SelectCenterCommand { get; set; }
         public ICommand SelectPinCommand { get; set; }
+        public ICommand FilterGamesByLocationCommand { get; }
 
-        public LocationsViewModel(ILocationsService locationsService)
+        public LocationsViewModel(ILocationsService locationsService, IRegionManager regionManager)
         {
+            this.regionManager = regionManager;
             this.locationsService = locationsService;
             this.locations = new ObservableCollection<Location>(this.locationsService.GetAll());
             this.mapItems = this.locations.Select(l => new MapItem(l));
@@ -69,6 +73,7 @@ namespace InstaSport.WPF.ViewModels
             this.SelectPinCommand = new DelegateCommand(SelectPin);
             this.CenterLocation = this.mapItems.First().Location;
             this.SelectedLocation = this.mapItems.First();
+            this.FilterGamesByLocationCommand = new DelegateCommand(OnFilterGamesByLocation);
         }
 
         private void SelectPin(object obj)
@@ -83,6 +88,15 @@ namespace InstaSport.WPF.ViewModels
             var args = obj as SelectionChangedEventArgs;
             var item = ((MapItem)args.AddedItems[0]);
             this.CenterLocation = item.Location;
+        }
+
+        private void OnFilterGamesByLocation(object obj)
+        {
+            var mapItem = obj as MapItem;
+            var location = this.Locations.FirstOrDefault(l => l.Name == mapItem.Name);
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add("Location", location);
+            this.regionManager.RequestNavigate("MainRegion", nameof(GamesView), navigationParameters);
         }
     }
 }

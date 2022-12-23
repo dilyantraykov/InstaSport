@@ -4,13 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-             xmlns:local="clr-namespace:InstaSport.WPF.Views"
+             xmlns:converters="clr-namespace:InstaSport.WPF.Converters"
              mc:Ignorable="d" xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <telerik:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
+        <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
     </UserControl.Resources>
     <Grid Width="400" Background="#333" 
                 HorizontalAlignment="Center" 
@@ -18,13 +19,44 @@
         <StackPanel Margin="20">
             <TextBlock Text="{Binding Game.Sport.Name, StringFormat=Sport: {0}}" />
             <TextBlock Text="{Binding Game.Location.Name, StringFormat=Location: {0}}" />
-            <TextBlock Text="{Binding Game.Status, StringFormat=Status: {0}}" />
+            <TextBlock Text="{Binding Game.Status, Converter={StaticResource EnumDescriptionConverter}, StringFormat=Status: {0}}" />
+            <telerik:RadDateTimePicker SelectedValue="{Binding Game.StartingDateTime}" IsReadOnly="True" />
+            <ItemsControl ItemsSource="{Binding Players}" HorizontalAlignment="Left">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0 2 2 2" Background="DarkGray" Width="30" Height="30">
+                            <telerik:EventToCommandBehavior.EventBindings>
+                                <telerik:EventBinding EventName="MouseLeftButtonDown"
+                                                      Command="{Binding DataContext.GoToUserProfileCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                      CommandParameter="{Binding}" />
+                            </telerik:EventToCommandBehavior.EventBindings>
+                            <Grid.ToolTip>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding FirstName}" />
+                                    <TextBlock Text=" " />
+                                    <TextBlock Text="{Binding LastName}" />
+                                </StackPanel>
+                            </Grid.ToolTip>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <TextBlock Text="{Binding FirstName[0]}" />
+                                <TextBlock Text="{Binding LastName[0]}" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            <telerik:RadProgressBar Value="{Binding Players.Count, Mode=OneWay}" Maximum="{Binding Game.MaxPlayers}" />
             <telerik:RadButton Content="Join Game" Margin="0 20 0 0"
                            Visibility="{Binding PlayerHasJoinedGame, 
                                         Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
                            Command="{Binding JoinGameCommand}"
                            CommandParameter="{Binding Game.Id}"/>
-            <telerik:RadButton Content="Leave Game"
+            <telerik:RadButton Content="Leave Game" Margin="0 20 0 0"
                            Visibility="{Binding PlayerHasJoinedGame, 
                                         Converter={StaticResource BooleanToVisibilityConverter}}"
                            Command="{Binding LeaveGameCommand}"

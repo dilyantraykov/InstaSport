@@ -50,7 +50,7 @@ namespace InstaSport.WPF
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<DbContext, InstaSportDbContext>();
+            containerRegistry.RegisterScoped<DbContext, InstaSportDbContext>();
             containerRegistry.Register<IDbRepository<Game>, DbRepository<Game>>();
             containerRegistry.Register<IDbRepository<Location>, DbRepository<Location>>();
             containerRegistry.Register<IDbRepository<Sport>, DbRepository<Sport>>();
@@ -70,6 +70,8 @@ namespace InstaSport.WPF
             containerRegistry.RegisterForNavigation<SportsView>();
             containerRegistry.RegisterForNavigation<LocationsView>();
             containerRegistry.RegisterForNavigation<GameDetailsView>();
+            containerRegistry.RegisterForNavigation<CreateGameView>();
+            containerRegistry.RegisterForNavigation<UserDetailsView>();
         }
     }
 }

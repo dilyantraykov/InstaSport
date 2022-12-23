@@ -86,14 +86,29 @@ namespace InstaSport.Services.Data
             return user;
         }
 
-        private User? GetByEmail(string email)
+        public User? GetByEmail(string email)
         {
             return this.users.All().FirstOrDefault(x => x.Email == email);
         }
 
-        private User? GetByUserName(string userName)
+        public User? GetByUserName(string userName)
         {
             return this.users.All().FirstOrDefault(x => x.UserName == userName);
+        }
+
+        public void Rate(User user, int id, int newValue)
+        {
+            var rating = user.Ratings.FirstOrDefault(r => r.AuthorId == id);
+            if (rating != null)
+            {
+                rating.Value = newValue;
+            }
+            else
+            {
+                user.Ratings.Add(new Rating() { AuthorId = id, Value = newValue });
+            }
+
+            this.users.Save();
         }
     }
 }

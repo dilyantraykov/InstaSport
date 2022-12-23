@@ -9,6 +9,9 @@
 
 	<ItemGroup>
 	  <None Remove="Fonts\FontAwesome5.otf" />
+	  <None Remove="Images\basketball.jpg" />
+	  <None Remove="Images\football.jpg" />
+	  <None Remove="Images\tennis.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -30,6 +33,9 @@
 
 	<ItemGroup>
 	  <Resource Include="Fonts\FontAwesome5.otf" />
+	  <Resource Include="Images\basketball.jpg" />
+	  <Resource Include="Images\football.jpg" />
+	  <Resource Include="Images\tennis.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -50,10 +56,6 @@
 	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 	    <SubType>Designer</SubType>
 	  </Page>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Converters\" />
 	</ItemGroup>
 
 </Project>

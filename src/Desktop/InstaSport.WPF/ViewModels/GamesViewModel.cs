@@ -6,6 +6,7 @@ using InstaSport.WPF.Views;
 using Prism.Mvvm;
 using Prism.Regions;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Telerik.Windows.Controls;
 
@@ -51,7 +52,20 @@ namespace InstaSport.WPF.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            this.Games = new ObservableCollection<Game>(this.gamesService.GetAll());
+            var games = this.gamesService.GetAll();
+            var sportFilter = navigationContext.Parameters["Sport"] as Sport;
+            if (sportFilter != null)
+            {
+                games = games.Where(x => x.Sport == sportFilter);
+            }
+
+            var locationFilter = navigationContext.Parameters["Location"] as Location;
+            if (locationFilter != null)
+            {
+                games = games.Where(x => x.Location == locationFilter);
+            }
+
+            this.Games = new ObservableCollection<Game>(games);
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

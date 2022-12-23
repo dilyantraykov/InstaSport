@@ -4,12 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-             xmlns:local="clr-namespace:InstaSport.WPF.Views"
+             xmlns:converters="clr-namespace:InstaSport.WPF.Converters"
              mc:Ignorable="d" xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:SportToImageConverter x:Key="SportToImageConverter" />
+        <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+        <Style TargetType="telerik:CarouselItem" BasedOn="{StaticResource CarouselItemStyle}">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="20" />
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -17,7 +23,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <telerik:Label Content="Games" FontSize="22" />
-        <telerik:RadCarousel Grid.Row="1" SelectedItem="{Binding SelectedGame, Mode=TwoWay}" ItemsSource="{Binding Games}">
+        <telerik:RadCarousel x:Name="GamesCarousel" Grid.Row="1" SelectedItem="{Binding SelectedGame, Mode=TwoWay}" ItemsSource="{Binding Games}">
             <telerik:RadCarousel.ItemsPanel>
                 <ItemsPanelTemplate>
                     <telerik:RadCarouselPanel ItemsPerPage="3" IsContinuous="True" />
@@ -30,22 +36,23 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <telerik:Label Content="{Binding Sport.Name, StringFormat=Sport: {0}}" />
-                        <telerik:Label Grid.Column="1" Content="{Binding Location.Name, StringFormat=Location: {0}}" />
-                        <telerik:Label Grid.Row="1" Content="{Binding Status, StringFormat=Status: {0}}" />
-                        <telerik:RadButton Grid.Row="1" Grid.Column="1" 
+                        <Image Width="200" Height="200" Grid.ColumnSpan="2" Source="{Binding Sport.Name, Converter={StaticResource SportToImageConverter}}" />
+                        <telerik:Label Grid.Row="1" Grid.Column="1" Content="{Binding Location.Name}" />
+                        <telerik:Label Grid.Row="1" Content="{Binding Status, Converter={StaticResource EnumDescriptionConverter}}" />
+                        <telerik:RadButton Grid.Row="2" Grid.ColumnSpan="2" 
                                            Content="Details"
                                            Visibility="{Binding DataContext.Authenticator.IsLoggedIn, 
                                                         Converter={StaticResource BooleanToVisibilityConverter},
                                                         RelativeSource={RelativeSource AncestorType=telerik:RadWindow}}"
                                            Command="{Binding DataContext.OpenGameCommand, RelativeSource={RelativeSource AncestorType=telerik:RadCarousel}}"
                                            CommandParameter="{Binding Id}"/>
-                        <telerik:RadProgressBar Grid.Row="2" Grid.ColumnSpan="2" Value="{Binding Players.Count, Mode=OneWay}" Maximum="{Binding MaxPlayers}" />
+                        <telerik:RadProgressBar Grid.Row="3" Grid.ColumnSpan="2" Value="{Binding Players.Count, Mode=OneWay}" Maximum="{Binding MaxPlayers}" />
                     </Grid>
                 </DataTemplate>
             </telerik:RadCarousel.ItemTemplate>

@@ -29,6 +29,8 @@ namespace InstaSport.WPF.ViewModels
 
         public ICommand SelectedNavigationItemChangedCommand { get; set; }
 
+        private bool programmaticSelection;
+
         public string SelectedView
         {
             get { return this.selectedView; }
@@ -38,10 +40,10 @@ namespace InstaSport.WPF.ViewModels
             }
         }
 
-        public MainWindowViewModel(IRegionManager regionManager, 
-            IAuthenticator authenticator, 
-            ISportsService sportsService, 
-            IGamesService gamesService, 
+        public MainWindowViewModel(IRegionManager regionManager,
+            IAuthenticator authenticator,
+            ISportsService sportsService,
+            IGamesService gamesService,
             ILocationsService locationsService)
         {
             this.Authenticator = authenticator;
@@ -57,13 +59,17 @@ namespace InstaSport.WPF.ViewModels
             this.NavigationItems.Add(new NavigationItem("Sports", "&#xf1e3;", nameof(SportsView)));
             this.NavigationItems.Add(new NavigationItem("Locations", "&#xf3c5;", nameof(LocationsView)));
             this.NavigationItems.Add(new NavigationItem("Games", "&#xf073;", nameof(GamesView)));
+            this.NavigationItems.Add(new NavigationItem("Create Game", "&#xf271;", nameof(CreateGameView)) { IsVisible = false });
 
             this.SelectedNavigationItemChangedCommand = new DelegateCommand(OnSelectedNavigationItemChanged);
 
             this.regionManager = regionManager;
             this.regionManager.Regions.CollectionChanged += OnRegionsCollectionChanged;
 
-            this.SelectedView = nameof(LoginView);
+            Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
+            {
+                this.SelectedView = nameof(LoginView);
+            }));
         }
 
         private void OnRegionsCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -77,26 +83,26 @@ namespace InstaSport.WPF.ViewModels
 
         private void OnSelectedNavigationItemChanged(object obj)
         {
-            Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
+            var args = obj as SelectionChangedEventArgs;
+            if (!this.programmaticSelection && args != null && args.AddedItems.Count > 0)
             {
-                var args = obj as SelectionChangedEventArgs;
-                if (args != null && args.AddedItems.Count > 0)
-                {
-                    var newItem = args.AddedItems[0] as NavigationItem;
-                    this.regionManager.RequestNavigate(StringConstants.MainRegionName, newItem.View);
-                }
-            }));
+                var newItem = args.AddedItems[0] as NavigationItem;
+                this.regionManager.RequestNavigate(StringConstants.MainRegionName, newItem.View);
+            }
         }
 
         private void NavigationServiceOnNavigated(object? sender, RegionNavigationEventArgs e)
         {
+            this.programmaticSelection = true;
             this.SelectedView = e.Uri.OriginalString;
+            this.programmaticSelection = false;
         }
 
         private void AuthenticatorCurrentUserChanged(object? sender, EventArgs e)
         {
             this.NavigationItems.First(x => x.Title == "Login").IsVisible = this.Authenticator.CurrentUser == null;
             this.NavigationItems.First(x => x.Title == "Register").IsVisible = this.Authenticator.CurrentUser == null;
+            this.NavigationItems.First(x => x.Title == "Create Game").IsVisible = this.Authenticator.CurrentUser != null;
         }
     }
 }

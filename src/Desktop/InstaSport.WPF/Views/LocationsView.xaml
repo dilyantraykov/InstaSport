@@ -11,6 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <telerik:Label Content="Locations" FontSize="22" />
         <Grid Grid.Row="1">
@@ -48,5 +49,8 @@
                 </telerik:VirtualizationLayer>
             </telerik:RadMap>
         </Grid>
+        <telerik:RadButton Grid.Row="2" Content="Filter Games by Location"
+                           Command="{Binding FilterGamesByLocationCommand}"
+                           CommandParameter="{Binding SelectedItem, ElementName=LocationsListBox}"/>
     </Grid>
 </UserControl>

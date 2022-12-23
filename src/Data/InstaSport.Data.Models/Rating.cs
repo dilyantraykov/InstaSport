@@ -5,6 +5,8 @@
 
     public class Rating : BaseModel<int>
     {
+        public int UserId { get; set; }
+
         [Range(0, 10)]
         public int Value { get; set; }
 

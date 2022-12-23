@@ -12,27 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Telerik.Windows.Controls;
 
 namespace InstaSport.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for CreateGameView.xaml
     /// </summary>
-    public partial class GamesView : UserControl
+    public partial class CreateGameView : UserControl
     {
-        public GamesView()
+        public CreateGameView()
         {
             InitializeComponent();
-
-            this.GamesCarousel.Loaded += (s, e) =>
-            {
-                var panel = this.GamesCarousel.FindCarouselPanel();
-                if (this.GamesCarousel.Items.Count < panel.ItemsPerPage)
-                {
-                    panel.ItemsPerPage = this.GamesCarousel.Items.Count;
-                }
-            };
         }
     }
 }

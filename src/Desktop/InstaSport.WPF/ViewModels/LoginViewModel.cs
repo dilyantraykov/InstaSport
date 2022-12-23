@@ -1,4 +1,5 @@
 ﻿using InstaSport.Services.Data;
+using InstaSport.WPF.Models;
 using InstaSport.WPF.State;
 using InstaSport.WPF.Views;
 using Prism.Mvvm;
@@ -13,7 +14,7 @@ using Telerik.Windows.Controls;
 
 namespace InstaSport.WPF.ViewModels
 {
-    public class LoginViewModel : BindableBase
+    public class LoginViewModel : ValidatableBindableBase
     {
         private readonly IRegionManager regionManager;
         private readonly IAuthenticator authenticator;
@@ -43,6 +44,10 @@ namespace InstaSport.WPF.ViewModels
             if (success)
             {
                 this.regionManager.RequestNavigate("MainRegion", nameof(GamesView));
+            }
+            else
+            {
+                this.AddError("Email", "Wrong username or password!");
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using InstaSport.Services.Data.Exceptions;
+using InstaSport.WPF.Models;
 using InstaSport.WPF.State;
 using InstaSport.WPF.Views;
 using Prism.Mvvm;
@@ -13,16 +14,23 @@ using Telerik.Windows.Controls;
 
 namespace InstaSport.WPF.ViewModels
 {
-    public class RegistrationViewModel : BindableBase, INotifyDataErrorInfo
+    public class RegistrationViewModel : ValidatableBindableBase
     {
         private readonly IRegionManager regionManager;
         private readonly IAuthenticator authenticator;
 
         private string username;
         private string email;
-        private readonly Dictionary<string, List<string>> errorsByPropertyName = new Dictionary<string, List<string>>();
 
-        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+        public string UserName
+        {
+            get { return this.username; }
+            set
+            {
+                this.ValidateUserName();
+                this.SetProperty(ref this.username, value);
+            }
+        }
 
         [EmailAddress(ErrorMessage = "Email address is invalid!")]
         public string Email
@@ -39,8 +47,6 @@ namespace InstaSport.WPF.ViewModels
         }
 
         public DelegateCommand RegisterCommand { get; }
-
-        public bool HasErrors => errorsByPropertyName.Any();
 
         public RegistrationViewModel(IRegionManager regionManager, IAuthenticator authenticator)
         {
@@ -63,16 +69,6 @@ namespace InstaSport.WPF.ViewModels
             }
         }
 
-        public string UserName
-        {
-            get { return this.username; }
-            set
-            {
-                this.ValidateUserName();
-                this.SetProperty(ref this.username, value);
-            }
-        }
-
         private void ValidateUserName()
         {
             ClearErrors(nameof(UserName));
@@ -82,38 +78,6 @@ namespace InstaSport.WPF.ViewModels
                 AddError(nameof(UserName), "Admin is not valid username.");
             if (UserName == null || UserName?.Length <= 5)
                 AddError(nameof(UserName), "Username must be at least 6 characters long.");
-        }
-
-        public IEnumerable GetErrors(string? propertyName)
-        {
-            return errorsByPropertyName.ContainsKey(propertyName) ? errorsByPropertyName[propertyName] : null;
-        }
-
-        private void OnErrorsChanged(string propertyName)
-        {
-            this.RaisePropertyChanged(nameof(HasErrors));
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-        }
-
-        private void AddError(string propertyName, string error)
-        {
-            if (!errorsByPropertyName.ContainsKey(propertyName))
-                errorsByPropertyName[propertyName] = new List<string>();
-
-            if (!errorsByPropertyName[propertyName].Contains(error))
-            {
-                errorsByPropertyName[propertyName].Add(error);
-                OnErrorsChanged(propertyName);
-            }
-        }
-
-        private void ClearErrors(string propertyName)
-        {
-            if (errorsByPropertyName.ContainsKey(propertyName))
-            {
-                errorsByPropertyName.Remove(propertyName);
-                OnErrorsChanged(propertyName);
-            }
         }
     }
 }

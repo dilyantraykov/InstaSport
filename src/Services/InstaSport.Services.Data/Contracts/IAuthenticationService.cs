@@ -11,5 +11,8 @@ namespace InstaSport.Services.Data
     {
         User Login(string username, string password);
         User Register(string username, string email, string password, string confirmPassword);
+        User? GetByUserName(string userName);
+        User? GetByEmail(string email);
+        void Rate(User user, int id, int newValue);
     }
 }
