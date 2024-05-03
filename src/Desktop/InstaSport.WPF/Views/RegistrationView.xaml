@@ -16,9 +16,13 @@
         <StackPanel Margin="30">
             <telerik:Label Content="Registration" HorizontalAlignment="Center" FontSize="30" Margin="0 0 0 20" />
             <telerik:Label Content="Username:" />
-            <TextBox Text="{Binding UserName}" />
+            <TextBox Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
             <telerik:Label Content="Email:" />
-            <TextBox Text="{Binding Email, ValidatesOnExceptions=True, NotifyOnValidationError=True}" />
+            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}" />
+            <telerik:Label Content="First name:" />
+            <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" />
+            <telerik:Label Content="Last name:" />
+            <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
             <telerik:Label Content="Password:" />
             <telerik:RadPasswordBox x:Name="PasswordBox" />
             <telerik:Label Content="Confirm Password:" />

@@ -53,9 +53,9 @@ namespace InstaSport.WPF.State
             this.CurrentUser = null;
         }
 
-        public void Register(string username, string email, string password, string confirmPassword)
+        public void Register(string username, string email, string firstName, string lastName, string password, string confirmPassword)
         {
-            authenticationService.Register(username, email, password, confirmPassword);
+            authenticationService.Register(username, email, firstName, lastName, password, confirmPassword);
             this.CurrentUser = authenticationService.Login(username, password);
         }
     }

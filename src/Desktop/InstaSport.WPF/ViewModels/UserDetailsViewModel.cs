@@ -44,7 +44,10 @@ namespace InstaSport.WPF.ViewModels
         private void OnRated(object obj)
         {
             var args = obj as RoutedPropertyChangedEventArgs<double?>;
-            this.authenticationService.Rate(User, this.authenticator.CurrentUser.Id, (int)args.NewValue);
+            if (args.OldValue != null)
+            {
+                this.authenticationService.Rate(User, this.authenticator.CurrentUser.Id, (int)args.NewValue);
+            }
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

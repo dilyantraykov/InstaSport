@@ -27,13 +27,18 @@ namespace InstaSport.WPF.ViewModels
             set
             {
                 this.SetProperty(ref this.game, value);
+                this.RaisePropertyChanged(nameof(IsGameActive));
                 this.RaisePropertyChanged(nameof(PlayerHasJoinedGame));
                 this.RaisePropertyChanged(nameof(Players));
             }
         }
 
-
         public ObservableCollection<User> Players { get { return this.Game == null ? null : new ObservableCollection<User>(this.Game.Players); } }
+
+        public bool IsGameActive
+        {
+            get { return this.Game != null && this.Game.Status == GameStatus.WaitingForPlayers; }
+        }
 
         public bool PlayerHasJoinedGame
         {

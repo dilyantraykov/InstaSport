@@ -20,6 +20,8 @@ namespace InstaSport.WPF.ViewModels
         private readonly IAuthenticator authenticator;
 
         private string username;
+        private string firstName;
+        private string lastName;
         private string email;
 
         public string UserName
@@ -27,8 +29,26 @@ namespace InstaSport.WPF.ViewModels
             get { return this.username; }
             set
             {
-                this.ValidateUserName();
+                this.ValidateUserName(value);
                 this.SetProperty(ref this.username, value);
+            }
+        }
+
+        public string FirstName
+        {
+            get { return this.firstName; }
+            set
+            {
+                this.SetProperty(ref this.firstName, value);
+            }
+        }
+
+        public string LastName
+        {
+            get { return this.lastName; }
+            set
+            {
+                this.SetProperty(ref this.lastName, value);
             }
         }
 
@@ -40,6 +60,7 @@ namespace InstaSport.WPF.ViewModels
             {
                 if (this.email != value)
                 {
+                    ClearErrors(nameof(Email));
                     Validator.ValidateProperty(value, new ValidationContext(this, null, null) { MemberName = nameof(Email) });
                     this.SetProperty(ref this.email, value);
                 }
@@ -60,7 +81,7 @@ namespace InstaSport.WPF.ViewModels
             var passwords = obj as Tuple<string, string>;
             try
             {
-                this.authenticator.Register(this.UserName, this.Email, passwords.Item1, passwords.Item2);
+                this.authenticator.Register(this.UserName, this.Email, this.FirstName, this.LastName, passwords.Item1, passwords.Item2);
                 this.regionManager.RequestNavigate("MainRegion", nameof(GamesView));
             }
             catch (InvalidPropertyException ex)
@@ -69,15 +90,15 @@ namespace InstaSport.WPF.ViewModels
             }
         }
 
-        private void ValidateUserName()
+        private void ValidateUserName(string name)
         {
             ClearErrors(nameof(UserName));
-            if (string.IsNullOrWhiteSpace(UserName))
+            if (string.IsNullOrWhiteSpace(name))
                 AddError(nameof(UserName), "Username cannot be empty.");
-            if (string.Equals(UserName, "Admin", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(name, "Admin", StringComparison.OrdinalIgnoreCase))
                 AddError(nameof(UserName), "Admin is not valid username.");
-            if (UserName == null || UserName?.Length <= 5)
-                AddError(nameof(UserName), "Username must be at least 6 characters long.");
+            if (name == null || name?.Length <= 3)
+                AddError(nameof(UserName), "Username must be at least 4 characters long.");
         }
     }
 }

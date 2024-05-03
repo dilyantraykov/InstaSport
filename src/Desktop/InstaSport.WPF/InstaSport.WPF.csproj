@@ -9,9 +9,12 @@
 
 	<ItemGroup>
 	  <None Remove="Fonts\FontAwesome5.otf" />
+	  <None Remove="Images\badminton.jpg" />
 	  <None Remove="Images\basketball.jpg" />
 	  <None Remove="Images\football.jpg" />
+	  <None Remove="Images\squash.jpg" />
 	  <None Remove="Images\tennis.jpg" />
+	  <None Remove="Images\volleyball.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -33,9 +36,24 @@
 
 	<ItemGroup>
 	  <Resource Include="Fonts\FontAwesome5.otf" />
-	  <Resource Include="Images\basketball.jpg" />
-	  <Resource Include="Images\football.jpg" />
-	  <Resource Include="Images\tennis.jpg" />
+	  <Resource Include="Images\badminton.jpg">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\basketball.jpg">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\football.jpg">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\squash.jpg">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\tennis.jpg">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\volleyball.jpg">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
 	</ItemGroup>
 
 	<ItemGroup>

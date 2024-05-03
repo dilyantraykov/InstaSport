@@ -23,7 +23,7 @@ namespace InstaSport.Services.Data
 
             if (!this.users.All().Any())
             {
-                this.Register("dtraykov", "dtraykov94@gmail.com", "123456", "123456");
+                this.Register("dtraykov", "dtraykov94@gmail.com", "Dilyan", "Traykov", "123456", "123456");
             }
         }
 
@@ -51,7 +51,7 @@ namespace InstaSport.Services.Data
             return user;
         }
 
-        public User Register(string username, string email, string password, string confirmPassword)
+        public User Register(string username, string email, string firstName, string lastName, string password, string confirmPassword)
         {
             if (password != confirmPassword)
             {
@@ -76,6 +76,8 @@ namespace InstaSport.Services.Data
             {
                 UserName = username,
                 Email = email,
+                FirstName = firstName,
+                LastName = lastName,
                 PasswordHash = hashedPassword,
                 DateJoined = DateTime.Now
             };
@@ -105,7 +107,7 @@ namespace InstaSport.Services.Data
             }
             else
             {
-                user.Ratings.Add(new Rating() { AuthorId = id, Value = newValue });
+                user.Ratings.Add(new Rating() { UserId  = user.Id, AuthorId = id, Value = newValue });
             }
 
             this.users.Save();

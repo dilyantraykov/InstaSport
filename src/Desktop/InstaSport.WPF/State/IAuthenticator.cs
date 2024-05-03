@@ -13,6 +13,6 @@ namespace InstaSport.WPF.State
 
         bool LogIn(string username, string password);
         void LogOut();
-        void Register(string username, string email, string password, string confirmPassword);
+        void Register(string username, string email, string firstName, string lastName, string password, string confirmPassword);
     }
 }

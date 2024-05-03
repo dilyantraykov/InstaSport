@@ -104,6 +104,18 @@
                     Status = GameStatus.Finished
                 }
             );
+
+            modelBuilder.Entity<Rating>()
+               .HasOne(r => r.Author)
+               .WithMany(u => u.AuthoredRatings)
+               .HasForeignKey(c => c.AuthorId)
+               .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Rating>()
+                .HasOne(c => c.User)
+                .WithMany(u => u.Ratings)
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

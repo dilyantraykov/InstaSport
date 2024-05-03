@@ -13,6 +13,7 @@ using System;
 using System.Windows;
 using System.Windows.Media;
 using Telerik.Windows.Controls;
+using Windows.Media.Protection.PlayReady;
 
 namespace InstaSport.WPF
 {
@@ -34,6 +35,8 @@ namespace InstaSport.WPF
 
         protected override void OnInitialized()
         {
+            Container.Resolve<DbContext>().Database.EnsureCreated();
+
             var font = new FontFamily(new Uri("pack://application:,,,/"), "./Fonts/#Font Awesome 5 Free Regular");
             RadGlyph.RegisterFont(font, "FontAwesome");
 

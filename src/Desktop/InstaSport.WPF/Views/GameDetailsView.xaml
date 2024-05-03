@@ -21,6 +21,7 @@
             <TextBlock Text="{Binding Game.Location.Name, StringFormat=Location: {0}}" />
             <TextBlock Text="{Binding Game.Status, Converter={StaticResource EnumDescriptionConverter}, StringFormat=Status: {0}}" />
             <telerik:RadDateTimePicker SelectedValue="{Binding Game.StartingDateTime}" IsReadOnly="True" />
+            <TextBlock Text="Players:" Margin="0 10" />
             <ItemsControl ItemsSource="{Binding Players}" HorizontalAlignment="Left">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -50,17 +51,29 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <telerik:RadProgressBar Value="{Binding Players.Count, Mode=OneWay}" Maximum="{Binding Game.MaxPlayers}" />
-            <telerik:RadButton Content="Join Game" Margin="0 20 0 0"
+            <Grid>
+                <telerik:RadProgressBar Value="{Binding Players.Count, Mode=OneWay}" 
+                                        Maximum="{Binding Game.MaxPlayers}"
+                                        Background="LightGray"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                    <TextBlock Text="{Binding Players.Count}" />
+                    <TextBlock Text=" / " />
+                    <TextBlock Text="{Binding Game.MaxPlayers}" />
+                </StackPanel>
+            </Grid>
+            <StackPanel Visibility="{Binding IsGameActive,
+                                     Converter={StaticResource BooleanToVisibilityConverter}}">
+                <telerik:RadButton Content="Join Game" Margin="0 20 0 0"
                            Visibility="{Binding PlayerHasJoinedGame, 
                                         Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
                            Command="{Binding JoinGameCommand}"
                            CommandParameter="{Binding Game.Id}"/>
-            <telerik:RadButton Content="Leave Game" Margin="0 20 0 0"
+                <telerik:RadButton Content="Leave Game" Margin="0 20 0 0"
                            Visibility="{Binding PlayerHasJoinedGame, 
                                         Converter={StaticResource BooleanToVisibilityConverter}}"
                            Command="{Binding LeaveGameCommand}"
                            CommandParameter="{Binding Game.Id}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

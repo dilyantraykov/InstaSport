@@ -26,7 +26,7 @@
         <telerik:RadCarousel x:Name="GamesCarousel" Grid.Row="1" SelectedItem="{Binding SelectedGame, Mode=TwoWay}" ItemsSource="{Binding Games}">
             <telerik:RadCarousel.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <telerik:RadCarouselPanel ItemsPerPage="3" IsContinuous="True" />
+                    <telerik:RadCarouselPanel ItemsPerPage="5" IsContinuous="True" />
                 </ItemsPanelTemplate>
             </telerik:RadCarousel.ItemsPanel>
             <telerik:RadCarousel.ItemTemplate>
