@@ -11,7 +11,7 @@
                    mc:Ignorable="d"
                    WindowState="Maximized"
                    prism:ViewModelLocator.AutoWireViewModel="True"
-                   Header="InstaSport" Height="450" Width="800">
+                   Header="InstaSport" MinHeight="600" MinWidth="800">
     <telerik:RadWindow.Resources>
         <telerik:StringToGlyphConverter x:Key="StringToGlyphConverter" />
         <telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -35,7 +35,7 @@
         <telerik:RadNavigationView x:Name="NavigationView" 
                                    PaneHeader="InstaSport"
                                    DisplayMode="Expanded"
-                                   ExpandedPaneWidth="200"
+                                   ExpandedPaneWidth="220"
                                    AutoChangeDisplayMode="False"
                                    ItemsSource="{Binding NavigationItems}"
                                    SelectedValue="{Binding SelectedView}"
@@ -54,9 +54,12 @@
                 </telerik:RadTransitionControl>
             </telerik:RadNavigationView.Content>
             <telerik:RadNavigationView.PaneFooter>
-                <StackPanel Visibility="{Binding Authenticator.IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="20" Orientation="Horizontal">
-                    <TextBlock Text="Logged in as: " />
-                    <TextBlock Text="{Binding Authenticator.CurrentUser.UserName}" />
+                <StackPanel Visibility="{Binding Authenticator.IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="20">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{telerik:LocalizableResource Key=LoggedInAsLabel}" />
+                        <TextBlock Text="{Binding Authenticator.CurrentUser.UserName}" />
+                    </StackPanel>
+                    <telerik:RadButton Content="{telerik:LocalizableResource Key=LogOutButton}" Command="{Binding LogOutCommand}" Margin="5" />
                 </StackPanel>
             </telerik:RadNavigationView.PaneFooter>
         </telerik:RadNavigationView>

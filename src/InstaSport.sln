@@ -5,19 +5,21 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{73E3D9E1-3B9C-48E2-9561-7D2AEF03EB37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstaSport.Data", "Data\InstaSport.Data\InstaSport.Data.csproj", "{7E3C0683-2E19-4A74-A774-8120F5DFB210}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstaSport.Data", "Data\InstaSport.Data\InstaSport.Data.csproj", "{7E3C0683-2E19-4A74-A774-8120F5DFB210}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstaSport.Data.Models", "Data\InstaSport.Data.Models\InstaSport.Data.Models.csproj", "{6F9CD20B-4059-493C-A626-7433D98376FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstaSport.Data.Models", "Data\InstaSport.Data.Models\InstaSport.Data.Models.csproj", "{6F9CD20B-4059-493C-A626-7433D98376FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstaSport.Data.Common", "Data\InstaSport.Data.Common\InstaSport.Data.Common.csproj", "{D2DCBB92-F326-499F-9622-EC3731942704}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstaSport.Data.Common", "Data\InstaSport.Data.Common\InstaSport.Data.Common.csproj", "{D2DCBB92-F326-499F-9622-EC3731942704}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D167BD69-AA16-42A9-A97F-EC3FB39CED70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstaSport.Services.Data", "Services\InstaSport.Services.Data\InstaSport.Services.Data.csproj", "{CECBC857-F516-429D-BB5A-7C04F0115A20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstaSport.Services.Data", "Services\InstaSport.Services.Data\InstaSport.Services.Data.csproj", "{CECBC857-F516-429D-BB5A-7C04F0115A20}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{DB87DA32-30D5-4473-ADD3-ABD3D58E70DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstaSport.WPF", "Desktop\InstaSport.WPF\InstaSport.WPF.csproj", "{28792EF4-075C-4C50-A9F1-90F995F87789}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstaSport.WPF", "Desktop\InstaSport.WPF\InstaSport.WPF.csproj", "{28792EF4-075C-4C50-A9F1-90F995F87789}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstaSport.Tests", "InstaSport.Tests\InstaSport.Tests.csproj", "{B1A41C40-A7EE-4436-97C0-A8394ED19D9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{28792EF4-075C-4C50-A9F1-90F995F87789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28792EF4-075C-4C50-A9F1-90F995F87789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28792EF4-075C-4C50-A9F1-90F995F87789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1A41C40-A7EE-4436-97C0-A8394ED19D9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1A41C40-A7EE-4436-97C0-A8394ED19D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1A41C40-A7EE-4436-97C0-A8394ED19D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1A41C40-A7EE-4436-97C0-A8394ED19D9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
 ﻿using InstaSport.Services.Data;
+using InstaSport.Services.Data.Localization;
 using InstaSport.WPF.Models;
 using InstaSport.WPF.State;
 using InstaSport.WPF.Views;
@@ -47,7 +48,7 @@ namespace InstaSport.WPF.ViewModels
             }
             else
             {
-                this.AddError("Email", "Wrong username or password!");
+                this.AddError("Email", Strings.WrongUsernameOrPasswordMessage);
             }
         }
     }

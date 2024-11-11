@@ -1,4 +1,5 @@
-﻿using Telerik.Windows.Controls;
+﻿using System.Windows.Media;
+using Telerik.Windows.Controls;
 
 namespace InstaSport.WPF.Views
 {
@@ -10,6 +11,9 @@ namespace InstaSport.WPF.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            TextOptions.SetTextFormattingMode(this, TextFormattingMode.Ideal);
+            TextOptions.SetTextRenderingMode(this, TextRenderingMode.ClearType);
         }
     }
 }

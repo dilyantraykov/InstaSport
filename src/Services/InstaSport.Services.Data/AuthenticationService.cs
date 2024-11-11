@@ -2,6 +2,7 @@
 using InstaSport.Data.Models;
 using InstaSport.Services.Data.Constants;
 using InstaSport.Services.Data.Exceptions;
+using InstaSport.Services.Data.Localization;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace InstaSport.Services.Data
 
             if (user == null)
             {
-                throw new ArgumentException("User not found!");
+                throw new ArgumentException(Strings.UserNotFoundMessage);
             }
 
             PasswordVerificationResult passwordResult = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
@@ -55,13 +56,13 @@ namespace InstaSport.Services.Data
         {
             if (password != confirmPassword)
             {
-                throw new InvalidPropertyException(StringConstants.Password, "Passwords do not match!");
+                throw new InvalidPropertyException(StringConstants.Password, Strings.PasswordsDontMatchMessage);
             }
 
             var user = this.GetByUserName(username);
             if (user != null)
             {
-                throw new InvalidPropertyException(StringConstants.UserName, "This username is already registered!");
+                throw new InvalidPropertyException(StringConstants.UserName, StringConstants.ExistingUserNameExceptionMessage);
             }
 
             user = this.GetByEmail(email);

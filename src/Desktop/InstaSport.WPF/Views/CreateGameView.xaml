@@ -15,24 +15,24 @@
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center">
         <StackPanel Margin="30">
-            <telerik:Label Content="Create Game" HorizontalAlignment="Center" FontSize="30" Margin="0 0 0 20" />
-            <telerik:Label Content="Sport:" />
+            <telerik:Label Content="{telerik:LocalizableResource Key=CreateGameTitle}" Style="{StaticResource TitleLabelStyle}" HorizontalAlignment="Center" FontSize="30" Margin="0 0 0 20" />
+            <telerik:Label Content="{telerik:LocalizableResource Key=SportLabel}" />
             <telerik:RadComboBox ItemsSource="{Binding Sports}" 
                                  SelectedValue="{Binding Game.SportId}" 
                                  DisplayMemberPath="Name" 
                                  SelectedValuePath="Id" />
-            <telerik:Label Content="Location:" />
+            <telerik:Label Content="{telerik:LocalizableResource Key=LocationLabel}" />
             <telerik:RadComboBox ItemsSource="{Binding Locations}" 
                                  SelectedValue="{Binding Game.LocationId}" 
                                  DisplayMemberPath="Name"
                                  SelectedValuePath="Id" />
-            <telerik:Label Content="Min Players:" />
-            <telerik:RadNumericUpDown NumberDecimalDigits="0" Value="{Binding Game.MinPlayers}" />
-            <telerik:Label Content="Max Players:" />
-            <telerik:RadNumericUpDown NumberDecimalDigits="0" Value="{Binding Game.MaxPlayers}" />
-            <telerik:Label Content="Date and Time:" />
+            <telerik:Label Content="{telerik:LocalizableResource Key=MinPlayersLabel}" />
+            <telerik:RadNumericUpDown Minimum="0" NumberDecimalDigits="0" Value="{Binding Game.MinPlayers}" />
+            <telerik:Label Content="{telerik:LocalizableResource Key=MaxPlayersLabel}" />
+            <telerik:RadNumericUpDown Minimum="0" NumberDecimalDigits="0" Value="{Binding Game.MaxPlayers}" />
+            <telerik:Label Content="{telerik:LocalizableResource Key=DateTimeLabel}" />
             <telerik:RadDateTimePicker TodayButtonVisibility="Visible" SelectedValue="{Binding Game.StartingDateTime}" />
-            <telerik:RadButton Margin="0 20 0 0" IsDefault="True" Content="Create Game" 
+            <telerik:RadButton Margin="0 20 0 0" IsDefault="True" Content="{telerik:LocalizableResource Key=CreateGameButton}" 
                                IsEnabled="{Binding HasErrors, Converter={StaticResource InvertedBooleanConverter}}"
                                Command="{Binding CreateGameCommand}"/>
         </StackPanel>

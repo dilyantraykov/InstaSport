@@ -11,12 +11,12 @@
           HorizontalAlignment="Center" 
           VerticalAlignment="Center">
         <StackPanel Margin="30">
-            <telerik:Label Content="Login" HorizontalAlignment="Center" FontSize="30" Margin="0 0 0 20" />
-            <telerik:Label Content="Username/Email:" />
+            <telerik:Label Content="{telerik:LocalizableResource Key=LoginTitle}" Style="{StaticResource TitleLabelStyle}" HorizontalAlignment="Center" FontSize="30" Margin="0 0 0 20" />
+            <telerik:Label Content="{telerik:LocalizableResource Key=UsernameEmailLabel}" />
             <TextBox Text="{Binding Email, ValidatesOnExceptions=True}" />
-            <telerik:Label Content="Password:" />
+            <telerik:Label Content="{telerik:LocalizableResource Key=PasswordLabel}" />
             <telerik:RadPasswordBox x:Name="PasswordBox" />
-            <telerik:RadButton Margin="0 20 0 0" IsDefault="True" Content="Log In" Click="RadButton_Click" />
+            <telerik:RadButton Margin="0 20 0 0" IsDefault="True" Content="{telerik:LocalizableResource Key=LoginButton}" Click="RadButton_Click" />
         </StackPanel>
     </Grid>
 </UserControl>

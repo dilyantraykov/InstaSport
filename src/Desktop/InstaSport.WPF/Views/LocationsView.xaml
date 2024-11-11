@@ -13,7 +13,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <telerik:Label Content="Locations" FontSize="22" />
+        <telerik:Label Content="{telerik:LocalizableResource Key=LocationsLabel}" Style="{StaticResource TitleLabelStyle}" FontSize="22" />
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
@@ -49,7 +49,7 @@
                 </telerik:VirtualizationLayer>
             </telerik:RadMap>
         </Grid>
-        <telerik:RadButton Grid.Row="2" Content="Filter Games by Location"
+        <telerik:RadButton Grid.Row="2" FontSize="20" Content="{telerik:LocalizableResource Key=FilterGamesByLocationButton}"
                            Command="{Binding FilterGamesByLocationCommand}"
                            CommandParameter="{Binding SelectedItem, ElementName=LocationsListBox}"/>
     </Grid>

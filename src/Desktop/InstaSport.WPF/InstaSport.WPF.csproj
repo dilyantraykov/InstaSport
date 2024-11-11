@@ -8,7 +8,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Fonts\AmazGoDaBold.ttf" />
 	  <None Remove="Fonts\FontAwesome5.otf" />
+	  <None Remove="Fonts\Obelix.ttf" />
+	  <None Remove="Fonts\OpenSans-Semibold.ttf" />
 	  <None Remove="Images\badminton.jpg" />
 	  <None Remove="Images\basketball.jpg" />
 	  <None Remove="Images\football.jpg" />
@@ -35,7 +38,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="Fonts\AmazGoDaBold.ttf" />
 	  <Resource Include="Fonts\FontAwesome5.otf" />
+	  <Resource Include="Fonts\Obelix.ttf" />
+	  <Resource Include="Fonts\OpenSans-Semibold.ttf" />
 	  <Resource Include="Images\badminton.jpg">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Resource>

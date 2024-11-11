@@ -15,9 +15,10 @@
           HorizontalAlignment="Center" 
           VerticalAlignment="Center">
         <StackPanel Margin="30">
+            <TextBlock Text="{telerik:LocalizableResource Key=RatePlayerTitle}" />
             <TextBlock Text="{Binding User.FirstName, StringFormat=First Name: {0}}" />
             <TextBlock Text="{Binding User.LastName, StringFormat=Last Name: {0}}" />
-            <TextBlock Text="Rating:" />
+            <TextBlock Text="{telerik:LocalizableResource Key=RatingLabel}" />
             <telerik:RadRating IsEnabled="{Binding IsRatingEnabled}"
                 Value="{Binding User.Ratings, Converter={StaticResource RatingsToDoubleConverter}}">
                 <telerik:EventToCommandBehavior.EventBindings>

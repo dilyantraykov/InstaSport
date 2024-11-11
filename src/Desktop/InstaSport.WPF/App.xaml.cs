@@ -2,6 +2,7 @@
 using InstaSport.Data.Common;
 using InstaSport.Data.Models;
 using InstaSport.Services.Data;
+using InstaSport.Services.Data.Localization;
 using InstaSport.WPF.State;
 using InstaSport.WPF.Views;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +11,8 @@ using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Regions;
 using System;
+using System.Globalization;
+using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using Telerik.Windows.Controls;
@@ -26,6 +29,12 @@ namespace InstaSport.WPF
         {
             StyleManager.ApplicationTheme = new FluentTheme();
             FluentPalette.LoadPreset(FluentPalette.ColorVariation.Dark);
+            this.DispatcherUnhandledException += OnAppDispatcherUnhandledException;
+        }
+
+        private void OnAppDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message);
         }
 
         protected override Window CreateShell()
@@ -39,6 +48,14 @@ namespace InstaSport.WPF
 
             var font = new FontFamily(new Uri("pack://application:,,,/"), "./Fonts/#Font Awesome 5 Free Regular");
             RadGlyph.RegisterFont(font, "FontAwesome");
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("bg-BG");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("bg-BG");
+
+            LocalizationManager.Manager = new LocalizationManager()
+            {
+                ResourceManager = Strings.ResourceManager
+            };
 
             MainWindow shellWindow = Container.Resolve<MainWindow>();
             shellWindow.Show();

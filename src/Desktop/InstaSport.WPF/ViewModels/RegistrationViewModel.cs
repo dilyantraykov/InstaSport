@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security;
 using Telerik.Windows.Controls;
 
 namespace InstaSport.WPF.ViewModels
@@ -23,6 +25,8 @@ namespace InstaSport.WPF.ViewModels
         private string firstName;
         private string lastName;
         private string email;
+        private SecureString password = new SecureString();
+        private SecureString confirmPassword = new SecureString();
 
         public string UserName
         {
@@ -52,7 +56,6 @@ namespace InstaSport.WPF.ViewModels
             }
         }
 
-        [EmailAddress(ErrorMessage = "Email address is invalid!")]
         public string Email
         {
             get { return this.email; }
@@ -61,9 +64,29 @@ namespace InstaSport.WPF.ViewModels
                 if (this.email != value)
                 {
                     ClearErrors(nameof(Email));
-                    Validator.ValidateProperty(value, new ValidationContext(this, null, null) { MemberName = nameof(Email) });
+                    ValidateEmail(value);
                     this.SetProperty(ref this.email, value);
                 }
+            }
+        }
+
+        public SecureString Password
+        {
+            get { return this.password; }
+            set
+            {
+                this.ValidatePassword(value);
+                this.SetProperty(ref this.password, value);
+            }
+        }
+
+        public SecureString ConfirmPassword
+        {
+            get { return this.confirmPassword; }
+            set
+            {
+                this.ValidateConfirmPassword(value);
+                this.SetProperty(ref this.confirmPassword, value);
             }
         }
 
@@ -78,10 +101,17 @@ namespace InstaSport.WPF.ViewModels
 
         private void OnRegistration(object obj)
         {
-            var passwords = obj as Tuple<string, string>;
             try
             {
-                this.authenticator.Register(this.UserName, this.Email, this.FirstName, this.LastName, passwords.Item1, passwords.Item2);
+                if (this.HasErrors)
+                {
+                    return;
+                }
+
+                string password = ConvertToUnsecureString(this.Password);
+                string confirmPassword = ConvertToUnsecureString(this.ConfirmPassword);
+
+                this.authenticator.Register(this.UserName, this.Email, this.FirstName, this.LastName, password, confirmPassword);
                 this.regionManager.RequestNavigate("MainRegion", nameof(GamesView));
             }
             catch (InvalidPropertyException ex)
@@ -99,6 +129,100 @@ namespace InstaSport.WPF.ViewModels
                 AddError(nameof(UserName), "Admin is not valid username.");
             if (name == null || name?.Length <= 3)
                 AddError(nameof(UserName), "Username must be at least 4 characters long.");
+        }
+
+        private void ValidateEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                AddError(nameof(Email), "Email address cannot be empty.");
+            }
+            else if (!IsValidEmail(email))
+            {
+                AddError(nameof(Email), "Email address is invalid!");
+            }
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void ValidatePassword(SecureString password)
+        {
+            ClearErrors(nameof(ConfirmPassword));
+            if (!SecureStringEqual(this.ConfirmPassword, password))
+            {
+                AddError(nameof(ConfirmPassword), "Passwords do not match.");
+            }
+        }
+
+        private void ValidateConfirmPassword(SecureString confirmPassword)
+        {
+            ClearErrors(nameof(ConfirmPassword));
+            if (!SecureStringEqual(this.Password, confirmPassword))
+            {
+                AddError(nameof(ConfirmPassword), "Passwords do not match.");
+            }
+        }
+
+        private bool SecureStringEqual(SecureString ss1, SecureString ss2)
+        {
+            if (ss1.Length != ss2.Length)
+                return false;
+
+            IntPtr bstr1 = IntPtr.Zero;
+            IntPtr bstr2 = IntPtr.Zero;
+
+            try
+            {
+                bstr1 = Marshal.SecureStringToBSTR(ss1);
+                bstr2 = Marshal.SecureStringToBSTR(ss2);
+
+                for (int i = 0; i < ss1.Length; i++)
+                {
+                    byte b1 = Marshal.ReadByte(bstr1, i);
+                    byte b2 = Marshal.ReadByte(bstr2, i);
+
+                    if (b1 != b2)
+                        return false;
+                }
+
+                return true;
+            }
+            finally
+            {
+                if (bstr1 != IntPtr.Zero)
+                    Marshal.ZeroFreeBSTR(bstr1);
+
+                if (bstr2 != IntPtr.Zero)
+                    Marshal.ZeroFreeBSTR(bstr2);
+            }
+        }
+
+        private string ConvertToUnsecureString(SecureString secureString)
+        {
+            if (secureString == null)
+                throw new ArgumentNullException(nameof(secureString));
+
+            IntPtr unmanagedString = IntPtr.Zero;
+            try
+            {
+                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(secureString);
+                return Marshal.PtrToStringUni(unmanagedString);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
+            }
         }
     }
 }

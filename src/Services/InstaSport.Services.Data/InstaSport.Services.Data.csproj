@@ -14,4 +14,19 @@
     <ProjectReference Include="..\..\Data\InstaSport.Data.Models\InstaSport.Data.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Localization\Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\Strings.resx">
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

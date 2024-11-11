@@ -10,6 +10,7 @@ namespace InstaSport.Services.Data.Constants
     {
         public const string MainRegionName = "MainRegion";
         public const string UserName = "UserName";
+        public const string ExistingUserNameExceptionMessage = "This username is already registered!";
         public const string Email = "Email";
         public const string Password = "Password";
     }

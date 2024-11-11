@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <telerik:Label Content="Games" FontSize="22" />
+        <telerik:Label Content="Games" Style="{StaticResource TitleLabelStyle}" FontSize="22" />
         <telerik:RadCarousel x:Name="GamesCarousel" Grid.Row="1" SelectedItem="{Binding SelectedGame, Mode=TwoWay}" ItemsSource="{Binding Games}">
             <telerik:RadCarousel.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -37,6 +37,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -45,14 +46,22 @@
                         <Image Width="200" Height="200" Grid.ColumnSpan="2" Source="{Binding Sport.Name, Converter={StaticResource SportToImageConverter}}" />
                         <telerik:Label Grid.Row="1" Grid.Column="1" Content="{Binding Location.Name}" />
                         <telerik:Label Grid.Row="1" Content="{Binding Status, Converter={StaticResource EnumDescriptionConverter}}" />
-                        <telerik:RadButton Grid.Row="2" Grid.ColumnSpan="2" 
-                                           Content="Details"
+                        <telerik:Label Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="{Binding StartingDateTime}" ContentStringFormat="dd.MM.yyyy HH:mm" />
+                        <telerik:RadButton Grid.Row="3" Grid.ColumnSpan="2" 
+                                           Content="{telerik:LocalizableResource Key=DetailsButtonLabel}"
                                            Visibility="{Binding DataContext.Authenticator.IsLoggedIn, 
                                                         Converter={StaticResource BooleanToVisibilityConverter},
                                                         RelativeSource={RelativeSource AncestorType=telerik:RadWindow}}"
                                            Command="{Binding DataContext.OpenGameCommand, RelativeSource={RelativeSource AncestorType=telerik:RadCarousel}}"
                                            CommandParameter="{Binding Id}"/>
-                        <telerik:RadProgressBar Grid.Row="3" Grid.ColumnSpan="2" Value="{Binding Players.Count, Mode=OneWay}" Maximum="{Binding MaxPlayers}" />
+                        <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                            <telerik:RadProgressBar Value="{Binding Players.Count, Mode=OneWay}" Maximum="{Binding MaxPlayers}" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                <TextBlock Text="{Binding Players.Count}" />
+                                <TextBlock Text=" / " />
+                                <TextBlock Text="{Binding MaxPlayers}" />
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </DataTemplate>
             </telerik:RadCarousel.ItemTemplate>
