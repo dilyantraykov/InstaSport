@@ -10,9 +10,11 @@ namespace InstaSport.Data.Models
 {
     public enum GameStatus
     {
-        [Description("Waiting for Players")]
+        [Description("{\"en\": \"Waiting for Players\", \"bg\": \"Изчаква играчи\"}")]
         WaitingForPlayers = 0,
+        [Description("{\"en\": \"Playing\", \"bg\": \"Играе се\"}")]
         Playing = 1,
+        [Description("{\"en\": \"Finished\", \"bg\": \"Приключила\"}")]
         Finished = 2
     }
 }

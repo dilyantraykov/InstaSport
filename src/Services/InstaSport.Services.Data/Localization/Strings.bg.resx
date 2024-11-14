@@ -237,4 +237,28 @@
   <data name="StatusLabel" xml:space="preserve">
     <value>Статус: </value>
   </data>
+  <data name="ExistingUserNameExceptionMessage" xml:space="preserve">
+    <value>Потребител с такова име вече съществува!</value>
+  </data>
+  <data name="UsernameEmptyError" xml:space="preserve">
+    <value>Потребителското име не може да бъде празно.</value>
+  </data>
+  <data name="UsernameInvalidError" xml:space="preserve">
+    <value>Потребителското име 'Admin' не е позволено.</value>
+  </data>
+  <data name="UsernameLengthError" xml:space="preserve">
+    <value>Потребителското име трябва да е по-дълго от 3 символа.</value>
+  </data>
+  <data name="EmailEmptyError" xml:space="preserve">
+    <value>Имейлът не може да бъде празен.</value>
+  </data>
+  <data name="EmailInvalidError" xml:space="preserve">
+    <value>Имейлът не е валиден.</value>
+  </data>
+  <data name="PasswordMismatchError" xml:space="preserve">
+    <value>Паролите не съвпадат.</value>
+  </data>
+  <data name="GamesTitle" xml:space="preserve">
+    <value>Игри</value>
+  </data>
 </root>

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
+using System.Text.Json;
 using System.Windows.Data;
 
 namespace InstaSport.WPF.Converters
@@ -25,7 +27,8 @@ namespace InstaSport.WPF.Converters
             else
             {
                 DescriptionAttribute attrib = attribArray[0] as DescriptionAttribute;
-                return attrib.Description;
+                var dictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(attrib.Description);
+                return dictionary[CultureInfo.CurrentCulture.TwoLetterISOLanguageName];
             }
         }
 

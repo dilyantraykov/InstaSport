@@ -4,6 +4,7 @@ using InstaSport.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InstaSport.Data.Migrations
 {
     [DbContext(typeof(InstaSportDbContext))]
-    partial class InstaSportDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241114211810_AddNameTranslationToSports")]
+    partial class AddNameTranslationToSports
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,7 +147,7 @@ namespace InstaSport.Data.Migrations
                             MaxPlayers = 12,
                             MinPlayers = 6,
                             SportId = 1,
-                            StartingDateTime = new DateTime(2024, 11, 15, 19, 41, 23, 198, DateTimeKind.Local).AddTicks(1130),
+                            StartingDateTime = new DateTime(2024, 11, 15, 19, 18, 10, 651, DateTimeKind.Local).AddTicks(6161),
                             Status = 0
                         },
                         new
@@ -157,7 +159,7 @@ namespace InstaSport.Data.Migrations
                             MaxPlayers = 12,
                             MinPlayers = 6,
                             SportId = 2,
-                            StartingDateTime = new DateTime(2024, 11, 14, 23, 41, 23, 198, DateTimeKind.Local).AddTicks(1167),
+                            StartingDateTime = new DateTime(2024, 11, 14, 23, 18, 10, 651, DateTimeKind.Local).AddTicks(6201),
                             Status = 1
                         },
                         new
@@ -169,7 +171,7 @@ namespace InstaSport.Data.Migrations
                             MaxPlayers = 2,
                             MinPlayers = 2,
                             SportId = 3,
-                            StartingDateTime = new DateTime(2024, 11, 14, 22, 41, 23, 198, DateTimeKind.Local).AddTicks(1169),
+                            StartingDateTime = new DateTime(2024, 11, 14, 22, 18, 10, 651, DateTimeKind.Local).AddTicks(6202),
                             Status = 2
                         });
                 });
@@ -205,9 +207,6 @@ namespace InstaSport.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameTranslations")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

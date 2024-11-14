@@ -3,6 +3,7 @@ using InstaSport.Data.Models;
 using InstaSport.Services.Data;
 using InstaSport.Services.Data.Constants;
 using InstaSport.Services.Data.Exceptions;
+using InstaSport.Services.Data.Localization;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 
@@ -51,7 +52,7 @@ public class AuthenticationServiceTests
         authService.Register(existingUserName, "email@example.com", "FirstName", 
         "LastName", "password", "password"));
 
-        Assert.AreEqual(StringConstants.ExistingUserNameExceptionMessage, exception.Message);
+        Assert.AreEqual(Strings.ExistingUserNameExceptionMessage, exception.Message);
     }
 
     [Test]

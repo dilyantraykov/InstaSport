@@ -30,7 +30,7 @@
                 </Grid.RowDefinitions>
 
                 <telerik:Label Content="{telerik:LocalizableResource Key=SportLabel}" Grid.Row="0" Grid.Column="0" />
-                <telerik:Label Content="{Binding Game.Sport.Name}" Grid.Row="0" Grid.Column="1" />
+                <telerik:Label Content="{Binding Game.Sport.TranslatedName}" Grid.Row="0" Grid.Column="1" />
 
                 <telerik:Label Content="{telerik:LocalizableResource Key=LocationLabel}" Grid.Row="1" Grid.Column="0" />
                 <telerik:Label Content="{Binding Game.Location.Name}" Grid.Row="1" Grid.Column="1" />

@@ -62,7 +62,7 @@ namespace InstaSport.Services.Data
             var user = this.GetByUserName(username);
             if (user != null)
             {
-                throw new InvalidPropertyException(StringConstants.UserName, StringConstants.ExistingUserNameExceptionMessage);
+                throw new InvalidPropertyException(StringConstants.UserName, Strings.ExistingUserNameExceptionMessage);
             }
 
             user = this.GetByEmail(email);

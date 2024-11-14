@@ -115,11 +115,38 @@ namespace InstaSport.Services.Data.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email address cannot be empty..
+        /// </summary>
+        public static string EmailEmptyError {
+            get {
+                return ResourceManager.GetString("EmailEmptyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email address is invalid!.
+        /// </summary>
+        public static string EmailInvalidError {
+            get {
+                return ResourceManager.GetString("EmailInvalidError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email:.
         /// </summary>
         public static string EmailLabel {
             get {
                 return ResourceManager.GetString("EmailLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This username is already registered!.
+        /// </summary>
+        public static string ExistingUserNameExceptionMessage {
+            get {
+                return ResourceManager.GetString("ExistingUserNameExceptionMessage", resourceCulture);
             }
         }
         
@@ -156,6 +183,15 @@ namespace InstaSport.Services.Data.Localization {
         public static string GamesNavItemLabel {
             get {
                 return ResourceManager.GetString("GamesNavItemLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Games.
+        /// </summary>
+        public static string GamesTitle {
+            get {
+                return ResourceManager.GetString("GamesTitle", resourceCulture);
             }
         }
         
@@ -286,6 +322,15 @@ namespace InstaSport.Services.Data.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Passwords do not match..
+        /// </summary>
+        public static string PasswordMismatchError {
+            get {
+                return ResourceManager.GetString("PasswordMismatchError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Passwords do not match!.
         /// </summary>
         public static string PasswordsDontMatchMessage {
@@ -394,11 +439,38 @@ namespace InstaSport.Services.Data.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username cannot be empty..
+        /// </summary>
+        public static string UsernameEmptyError {
+            get {
+                return ResourceManager.GetString("UsernameEmptyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin is not valid username..
+        /// </summary>
+        public static string UsernameInvalidError {
+            get {
+                return ResourceManager.GetString("UsernameInvalidError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username:.
         /// </summary>
         public static string UsernameLabel {
             get {
                 return ResourceManager.GetString("UsernameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username must be at least 4 characters long..
+        /// </summary>
+        public static string UsernameLengthError {
+            get {
+                return ResourceManager.GetString("UsernameLengthError", resourceCulture);
             }
         }
         

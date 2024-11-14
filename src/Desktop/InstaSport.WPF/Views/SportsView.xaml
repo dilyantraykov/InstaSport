@@ -27,7 +27,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Image Width="200" Height="200" Source="{Binding Name, Converter={StaticResource SportToImageConverter}}" />
-                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Name}" FontSize="16" FontFamily="#Open Sans SemiBold" />
+                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding TranslatedName}" FontSize="16" FontFamily="#Open Sans SemiBold" />
                     </Grid>
                 </DataTemplate>
             </telerik:RadListBox.ItemTemplate>

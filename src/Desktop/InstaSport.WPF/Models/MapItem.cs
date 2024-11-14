@@ -7,7 +7,7 @@ namespace InstaSport.WPF.Models
         private Location location;
         private string name;
 
-        public MapItem(InstaSport.Data.Models.Location location)
+        public MapItem(LocationDto location)
         {
             this.location = new Location((double)location.Latitude, (double)location.Longitude);
             this.name = location.Name;

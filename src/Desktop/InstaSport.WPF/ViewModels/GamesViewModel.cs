@@ -1,6 +1,8 @@
 ﻿using InstaSport.Data.Models;
 using InstaSport.Services.Data;
 using InstaSport.Services.Data.Constants;
+using InstaSport.WPF.Helpers;
+using InstaSport.WPF.Models;
 using InstaSport.WPF.State;
 using InstaSport.WPF.Views;
 using Prism.Mvvm;
@@ -17,17 +19,17 @@ namespace InstaSport.WPF.ViewModels
         private readonly IRegionManager regionManager;
         private readonly IAuthenticator authenticator;
         private readonly IGamesService gamesService;
-        private Game selectedGame;
+        private GameDto selectedGame;
 
-        private ObservableCollection<Game> games;
+        private ObservableCollection<GameDto> games;
 
-        public ObservableCollection<Game> Games
+        public ObservableCollection<GameDto> Games
         {
             get { return this.games; }
             set { this.games = value; this.RaisePropertyChanged(); }
         }
 
-        public Game SelectedGame
+        public GameDto SelectedGame
         {
             get { return this.selectedGame; }
             set { this.SetProperty(ref this.selectedGame, value); }
@@ -52,20 +54,20 @@ namespace InstaSport.WPF.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            var games = this.gamesService.GetAll();
-            var sportFilter = navigationContext.Parameters["Sport"] as Sport;
+            var games = this.gamesService.GetAll().ToDto();
+            var sportFilter = navigationContext.Parameters["Sport"] as SportDto;
             if (sportFilter != null)
             {
-                games = games.Where(x => x.Sport == sportFilter);
+                games = games.Where(x => x.SportId == sportFilter.Id);
             }
 
-            var locationFilter = navigationContext.Parameters["Location"] as Location;
+            var locationFilter = navigationContext.Parameters["Location"] as LocationDto;
             if (locationFilter != null)
             {
-                games = games.Where(x => x.Location == locationFilter);
+                games = games.Where(x => x.LocationId == locationFilter.Id);
             }
 
-            this.Games = new ObservableCollection<Game>(games);
+            this.Games = new ObservableCollection<GameDto>(games);
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

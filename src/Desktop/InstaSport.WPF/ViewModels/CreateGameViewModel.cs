@@ -1,5 +1,7 @@
 ﻿using InstaSport.Data.Models;
 using InstaSport.Services.Data;
+using InstaSport.WPF.Helpers;
+using InstaSport.WPF.Models;
 using InstaSport.WPF.State;
 using InstaSport.WPF.Views;
 using Prism.Mvvm;
@@ -20,15 +22,15 @@ namespace InstaSport.WPF.ViewModels
         private readonly ILocationsService locationsService;
         private readonly ISportsService sportsService;
         private Game game;
-        private ObservableCollection<Sport> sports;
-        private ObservableCollection<Location> locations;
+        private ObservableCollection<SportDto> sports;
+        private ObservableCollection<LocationDto> locations;
 
-        public ObservableCollection<Sport> Sports
+        public ObservableCollection<SportDto> Sports
         {
             get { return this.sports; }
         }
 
-        public ObservableCollection<Location> Locations
+        public ObservableCollection<LocationDto> Locations
         {
             get { return this.locations; }
         }
@@ -51,8 +53,8 @@ namespace InstaSport.WPF.ViewModels
             this.gamesService = gamesService;
             this.locationsService = locationsService;
             this.sportsService = sportsService;
-            this.locations = new ObservableCollection<Location>(this.locationsService.GetAll());
-            this.sports = new ObservableCollection<Sport>(this.sportsService.GetAll());
+            this.locations = new ObservableCollection<LocationDto>(this.locationsService.GetAll().ToDto());
+            this.sports = new ObservableCollection<SportDto>(this.sportsService.GetAll().ToDto());
             this.Game = new Game();
             this.Game.MinPlayers = 0;
             this.Game.MaxPlayers = 0;

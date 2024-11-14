@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <telerik:Label Content="Games" Style="{StaticResource TitleLabelStyle}" FontSize="22" />
+        <telerik:Label Content="{telerik:LocalizableResource Key=GamesTitle}" Style="{StaticResource TitleLabelStyle}" FontSize="22" />
         <telerik:RadCarousel x:Name="GamesCarousel" Grid.Row="1" SelectedItem="{Binding SelectedGame, Mode=TwoWay}" ItemsSource="{Binding Games}">
             <telerik:RadCarousel.ItemsPanel>
                 <ItemsPanelTemplate>

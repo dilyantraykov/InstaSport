@@ -19,7 +19,7 @@
             <telerik:Label Content="{telerik:LocalizableResource Key=SportLabel}" />
             <telerik:RadComboBox ItemsSource="{Binding Sports}" 
                                  SelectedValue="{Binding Game.SportId}" 
-                                 DisplayMemberPath="Name" 
+                                 DisplayMemberPath="TranslatedName" 
                                  SelectedValuePath="Id" />
             <telerik:Label Content="{telerik:LocalizableResource Key=LocationLabel}" />
             <telerik:RadComboBox ItemsSource="{Binding Locations}" 

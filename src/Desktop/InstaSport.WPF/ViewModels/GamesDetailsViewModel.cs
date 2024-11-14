@@ -1,6 +1,7 @@
 ﻿using InstaSport.Data.Models;
 using InstaSport.Services.Data;
 using InstaSport.Services.Data.Constants;
+using InstaSport.WPF.Helpers;
 using InstaSport.WPF.State;
 using InstaSport.WPF.Views;
 using Prism.Mvvm;
@@ -19,9 +20,9 @@ namespace InstaSport.WPF.ViewModels
         private readonly IRegionManager regionManager;
         private readonly IAuthenticator authenticator;
         private readonly IGamesService gamesService;
-        private Game game;
+        private GameDto game;
 
-        public Game Game
+        public GameDto Game
         {
             get { return this.game; }
             set
@@ -33,7 +34,7 @@ namespace InstaSport.WPF.ViewModels
             }
         }
 
-        public ObservableCollection<User> Players { get { return this.Game == null ? null : new ObservableCollection<User>(this.Game.Players); } }
+        public ObservableCollection<UserDto> Players { get { return this.Game == null ? null : new ObservableCollection<UserDto>(this.Game.Players); } }
 
         public bool IsGameActive
         {
@@ -61,7 +62,7 @@ namespace InstaSport.WPF.ViewModels
 
         private void GoToProfile(object obj)
         {
-            var user = obj as User; 
+            var user = obj as UserDto; 
             var parameters = new NavigationParameters();
             parameters.Add("Username", user.UserName);
             this.regionManager.RequestNavigate(StringConstants.MainRegionName, nameof(UserDetailsView), parameters);
@@ -70,6 +71,8 @@ namespace InstaSport.WPF.ViewModels
         private void LeaveGame(object obj)
         {
             this.gamesService.RemovePlayer((int)obj, this.authenticator.CurrentUser);
+            var player = this.Players.First(p => p.Id == this.authenticator.CurrentUser.Id);
+            this.game.Players.Remove(player);
             this.RaisePropertyChanged(nameof(PlayerHasJoinedGame));
             this.RaisePropertyChanged(nameof(Players));
         }
@@ -77,6 +80,7 @@ namespace InstaSport.WPF.ViewModels
         private void JoinGame(object obj)
         {
             this.gamesService.AddPlayer((int)obj, this.authenticator.CurrentUser);
+            this.game.Players.Add(this.authenticator.CurrentUser.ToDto());
             this.RaisePropertyChanged(nameof(PlayerHasJoinedGame));
             this.RaisePropertyChanged(nameof(Players));
         }
@@ -84,7 +88,7 @@ namespace InstaSport.WPF.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             var gameId = (int)navigationContext.Parameters["GameId"];
-            this.Game = this.gamesService.GetById(gameId);
+            this.Game = this.gamesService.GetById(gameId).ToDto();
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

@@ -13,6 +13,8 @@
 
         public string Name { get; set; }
 
+        public string? NameTranslations { get; set; }
+
         public virtual ICollection<User> Players { get; set; }
 
         public virtual ICollection<Location> Locations { get; set; }

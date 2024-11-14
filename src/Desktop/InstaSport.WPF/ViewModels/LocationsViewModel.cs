@@ -1,5 +1,6 @@
 ﻿using InstaSport.Data.Models;
 using InstaSport.Services.Data;
+using InstaSport.WPF.Helpers;
 using InstaSport.WPF.Models;
 using InstaSport.WPF.Views;
 using Prism.Mvvm;
@@ -19,7 +20,7 @@ namespace InstaSport.WPF.ViewModels
         private IRegionManager regionManager;
         private ILocationsService locationsService;
         private IEnumerable<MapItem> mapItems;
-        private ObservableCollection<Location> locations;
+        private ObservableCollection<LocationDto> locations;
         private Telerik.Windows.Controls.Map.Location centerLocation;
         private MapItem selectedLocation;
 
@@ -54,7 +55,7 @@ namespace InstaSport.WPF.ViewModels
             get { return this.mapItems; }
         }
 
-        public ObservableCollection<Location> Locations
+        public ObservableCollection<LocationDto> Locations
         {
             get { return this.locations; }
         }
@@ -67,7 +68,7 @@ namespace InstaSport.WPF.ViewModels
         {
             this.regionManager = regionManager;
             this.locationsService = locationsService;
-            this.locations = new ObservableCollection<Location>(this.locationsService.GetAll());
+            this.locations = new ObservableCollection<LocationDto>(this.locationsService.GetAll().ToDto());
             this.mapItems = this.locations.Select(l => new MapItem(l));
             this.SelectCenterCommand = new DelegateCommand(SelectCenter);
             this.SelectPinCommand = new DelegateCommand(SelectPin);

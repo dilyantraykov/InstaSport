@@ -1,15 +1,10 @@
 ﻿using InstaSport.Services.Data.Exceptions;
+using InstaSport.Services.Data.Localization;
 using InstaSport.WPF.Models;
 using InstaSport.WPF.State;
 using InstaSport.WPF.Views;
-using Prism.Mvvm;
 using Prism.Regions;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
 using Telerik.Windows.Controls;
@@ -124,22 +119,22 @@ namespace InstaSport.WPF.ViewModels
         {
             ClearErrors(nameof(UserName));
             if (string.IsNullOrWhiteSpace(name))
-                AddError(nameof(UserName), "Username cannot be empty.");
+                AddError(nameof(UserName), Strings.UsernameEmptyError);
             if (string.Equals(name, "Admin", StringComparison.OrdinalIgnoreCase))
-                AddError(nameof(UserName), "Admin is not valid username.");
+                AddError(nameof(UserName), Strings.UsernameInvalidError);
             if (name == null || name?.Length <= 3)
-                AddError(nameof(UserName), "Username must be at least 4 characters long.");
+                AddError(nameof(UserName), Strings.UsernameLengthError);
         }
 
         private void ValidateEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                AddError(nameof(Email), "Email address cannot be empty.");
+                AddError(nameof(Email), Strings.EmailEmptyError);
             }
             else if (!IsValidEmail(email))
             {
-                AddError(nameof(Email), "Email address is invalid!");
+                AddError(nameof(Email), Strings.EmailInvalidError);
             }
         }
 
@@ -161,7 +156,7 @@ namespace InstaSport.WPF.ViewModels
             ClearErrors(nameof(ConfirmPassword));
             if (!SecureStringEqual(this.ConfirmPassword, password))
             {
-                AddError(nameof(ConfirmPassword), "Passwords do not match.");
+                AddError(nameof(ConfirmPassword), Strings.PasswordMismatchError);
             }
         }
 
@@ -170,7 +165,7 @@ namespace InstaSport.WPF.ViewModels
             ClearErrors(nameof(ConfirmPassword));
             if (!SecureStringEqual(this.Password, confirmPassword))
             {
-                AddError(nameof(ConfirmPassword), "Passwords do not match.");
+                AddError(nameof(ConfirmPassword), Strings.PasswordMismatchError);
             }
         }
 

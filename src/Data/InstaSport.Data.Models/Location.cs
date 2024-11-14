@@ -14,6 +14,8 @@
 
         public string Name { get; set; }
 
+        public string? NameTranslations { get; set; }
+
         [Column(TypeName = "decimal(18,6)")]
         public decimal Latitude { get; set; }
 
