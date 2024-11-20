@@ -13,7 +13,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <telerik:Label Content="{telerik:LocalizableResource Key=LocationsLabel}" Style="{StaticResource TitleLabelStyle}" FontSize="22" />
+        <telerik:Label Content="{telerik:LocalizableResource Key=LocationsLabel}" Style="{StaticResource TitleLabelStyle}" />
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
@@ -21,6 +21,7 @@
             </Grid.ColumnDefinitions>
             <telerik:RadListBox x:Name="LocationsListBox" 
                                 SelectionMode="Single"
+                                FontSize="16"
                                 SelectedItem="{Binding SelectedLocation, Mode=TwoWay}"
                                 ItemsSource="{Binding MapItems}" 
                                 DisplayMemberPath="Name">

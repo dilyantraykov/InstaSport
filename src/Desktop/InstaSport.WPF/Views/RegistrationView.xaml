@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <telerik:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
     </UserControl.Resources>
-    <Grid Width="400" Background="#333"
+    <Grid Width="400" Background="{telerik:FluentResource ResourceKey=AlternativeBrush}"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center">
         <StackPanel Margin="30">

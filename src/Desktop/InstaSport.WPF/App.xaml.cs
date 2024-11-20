@@ -49,12 +49,15 @@ namespace InstaSport.WPF
             var font = new FontFamily(new Uri("pack://application:,,,/"), "./Fonts/#Font Awesome 5 Free Regular");
             RadGlyph.RegisterFont(font, "FontAwesome");
 
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("bg-BG");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("bg-BG");
+            var defaultCulture = new CultureInfo("bg-BG");
+            Thread.CurrentThread.CurrentCulture = defaultCulture;
+            Thread.CurrentThread.CurrentUICulture = defaultCulture;
 
+            LocalizationManager.UseDynamicLocalization = true;
             LocalizationManager.Manager = new LocalizationManager()
             {
-                ResourceManager = Strings.ResourceManager
+                ResourceManager = Strings.ResourceManager,
+                Culture = defaultCulture
             };
 
             MainWindow shellWindow = Container.Resolve<MainWindow>();

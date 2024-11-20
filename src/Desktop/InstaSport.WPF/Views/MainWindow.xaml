@@ -38,7 +38,7 @@
                                    ExpandedPaneWidth="220"
                                    AutoChangeDisplayMode="False"
                                    ItemsSource="{Binding NavigationItems}"
-                                   SelectedValue="{Binding SelectedView}"
+                                   SelectedValue="{Binding SelectedView, Mode=TwoWay}"
                                    SelectedValuePath="View">
             <telerik:EventToCommandBehavior.EventBindings>
                 <telerik:EventBinding EventName="SelectionChanged" 
@@ -54,12 +54,30 @@
                 </telerik:RadTransitionControl>
             </telerik:RadNavigationView.Content>
             <telerik:RadNavigationView.PaneFooter>
-                <StackPanel Visibility="{Binding Authenticator.IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="20">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{telerik:LocalizableResource Key=LoggedInAsLabel}" />
-                        <TextBlock Text="{Binding Authenticator.CurrentUser.UserName}" />
+                <StackPanel>
+                    <StackPanel.Resources>
+                        <Style TargetType="telerik:RadNavigationViewItem" BasedOn="{StaticResource RadNavigationViewItemStyle}">
+                            <Setter Property="IconTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <telerik:RadGlyph Font="FontAwesome" 
+                                          Glyph="{Binding}"
+                                          HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </StackPanel.Resources>
+                    <telerik:RadNavigationViewItem Icon="&#xf042;" Content="{Binding ToggleThemeContent}" Command="{Binding ToggleThemeCommand}" />
+                    <telerik:RadNavigationViewItem Icon="&#xf1ab;" Content="{Binding ToggleLanguageContent}" Command="{Binding ToggleLanguageCommand}" />
+                    <StackPanel Visibility="{Binding Authenticator.IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal"  Margin="20 5">
+                            <TextBlock Text="{telerik:LocalizableResource Key=LoggedInAsLabel}" />
+                            <TextBlock Text="{Binding Authenticator.CurrentUser.UserName}" />
+                        </StackPanel>
+                        <telerik:RadNavigationViewItem Icon="&#xf2f5;" Content="{telerik:LocalizableResource Key=LogOutButton}" Command="{Binding LogOutCommand}" Margin="5" />
                     </StackPanel>
-                    <telerik:RadButton Content="{telerik:LocalizableResource Key=LogOutButton}" Command="{Binding LogOutCommand}" Margin="5" />
                 </StackPanel>
             </telerik:RadNavigationView.PaneFooter>
         </telerik:RadNavigationView>

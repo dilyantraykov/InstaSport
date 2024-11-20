@@ -15,7 +15,7 @@ using Telerik.Windows.Controls;
 
 namespace InstaSport.WPF.ViewModels
 {
-    public class LocationsViewModel : BindableBase
+    public class LocationsViewModel : BindableBase, INavigationAware
     {
         private IRegionManager regionManager;
         private ILocationsService locationsService;
@@ -98,6 +98,19 @@ namespace InstaSport.WPF.ViewModels
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add("Location", location);
             this.regionManager.RequestNavigate("MainRegion", nameof(GamesView), navigationParameters);
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return false;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
         }
     }
 }

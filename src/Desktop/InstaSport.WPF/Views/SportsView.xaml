@@ -17,7 +17,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <telerik:Label Content="{telerik:LocalizableResource Key=SportsLabel}" Style="{StaticResource TitleLabelStyle}" FontSize="22" />
+        <telerik:Label Content="{telerik:LocalizableResource Key=SportsLabel}" Style="{StaticResource TitleLabelStyle}" />
         <telerik:RadListBox x:Name="SportsListBox" Grid.Row="1" ItemsSource="{Binding Sports}">
             <telerik:RadListBox.ItemTemplate>
                 <DataTemplate>

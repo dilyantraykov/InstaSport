@@ -66,7 +66,10 @@ namespace InstaSport.WPF.ViewModels
         {
             this.gamesService.Create(this.Game);
             this.gamesService.AddPlayer(this.Game.Id, this.authenticator.CurrentUser);
-            this.regionManager.RequestNavigate("MainRegion", nameof(GamesView));
+
+            var parameters = new NavigationParameters();
+            parameters.Add("GameId", this.Game.Id);
+            this.regionManager.RequestNavigate("MainRegion", nameof(GameDetailsView), parameters);
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)

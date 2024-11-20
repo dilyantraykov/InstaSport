@@ -22,11 +22,16 @@
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
-                <!--<Setter Property="FontFamily" Value="Arial Black" />
-                <Setter Property="TextElement.FontFamily" Value="Arial Black" />-->
             </Style>
             <Style x:Key="TitleLabelStyle" TargetType="telerik:Label" BasedOn="{StaticResource LabelStyle}">
                 <Setter Property="FontFamily" Value="#AmazGoDaBold" />
+                <Setter Property="FontSize" Value="32" />
+            </Style>
+            <Style TargetType="telerik:Label" BasedOn="{StaticResource LabelStyle}">
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style TargetType="telerik:RadButton" BasedOn="{StaticResource RadButtonStyle}">
+                <Setter Property="FontSize" Value="14" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

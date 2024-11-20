@@ -97,6 +97,15 @@ namespace InstaSport.Services.Data.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dark.
+        /// </summary>
+        public static string DarkThemeLabel {
+            get {
+                return ResourceManager.GetString("DarkThemeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date and Time: .
         /// </summary>
         public static string DateTimeLabel {
@@ -178,6 +187,15 @@ namespace InstaSport.Services.Data.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game Details.
+        /// </summary>
+        public static string GameDetailsTitle {
+            get {
+                return ResourceManager.GetString("GameDetailsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Games.
         /// </summary>
         public static string GamesNavItemLabel {
@@ -205,6 +223,15 @@ namespace InstaSport.Services.Data.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language: .
+        /// </summary>
+        public static string LanguageLabel {
+            get {
+                return ResourceManager.GetString("LanguageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name:.
         /// </summary>
         public static string LastNameLabel {
@@ -219,6 +246,15 @@ namespace InstaSport.Services.Data.Localization {
         public static string LeaveGameLabel {
             get {
                 return ResourceManager.GetString("LeaveGameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light.
+        /// </summary>
+        public static string LightThemeLabel {
+            get {
+                return ResourceManager.GetString("LightThemeLabel", resourceCulture);
             }
         }
         
@@ -426,6 +462,15 @@ namespace InstaSport.Services.Data.Localization {
         public static string StatusLabel {
             get {
                 return ResourceManager.GetString("StatusLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme: .
+        /// </summary>
+        public static string ThemeLabel {
+            get {
+                return ResourceManager.GetString("ThemeLabel", resourceCulture);
             }
         }
         

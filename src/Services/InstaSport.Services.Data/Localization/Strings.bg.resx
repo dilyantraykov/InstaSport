@@ -130,7 +130,7 @@
     <value>Име:</value>
   </data>
   <data name="LastNameLabel" xml:space="preserve">
-    <value>Презиме:</value>
+    <value>Фамилия:</value>
   </data>
   <data name="PasswordLabel" xml:space="preserve">
     <value>Парола:</value>
@@ -260,5 +260,20 @@
   </data>
   <data name="GamesTitle" xml:space="preserve">
     <value>Игри</value>
+  </data>
+  <data name="DarkThemeLabel" xml:space="preserve">
+    <value>Тъмна</value>
+  </data>
+  <data name="LightThemeLabel" xml:space="preserve">
+    <value>Светла</value>
+  </data>
+  <data name="ThemeLabel" xml:space="preserve">
+    <value>Тема: </value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Език: </value>
+  </data>
+  <data name="GameDetailsTitle" xml:space="preserve">
+    <value>Детайли за игра</value>
   </data>
 </root>

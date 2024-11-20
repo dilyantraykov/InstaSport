@@ -8,7 +8,9 @@ using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -22,7 +24,10 @@ namespace InstaSport.WPF.ViewModels
         private readonly IGamesService gamesService;
         private readonly ILocationsService locationsService;
         private readonly IRegionManager regionManager;
+        private string lastSelectedView;
+        private NavigationParameters lastParameters;
         private string selectedView;
+        private FluentPalette.ColorVariation currentVariation = FluentPalette.ColorVariation.Dark;
 
         public IAuthenticator Authenticator { get; }
 
@@ -32,6 +37,10 @@ namespace InstaSport.WPF.ViewModels
 
         public ICommand LogOutCommand { get; set; }
 
+        public ICommand ToggleThemeCommand { get; set; }
+
+        public ICommand ToggleLanguageCommand { get; set; }
+
         private bool programmaticSelection;
 
         public string SelectedView
@@ -40,6 +49,25 @@ namespace InstaSport.WPF.ViewModels
             set
             {
                 this.SetProperty(ref this.selectedView, value);
+            }
+        }
+
+        public string ToggleLanguageContent
+        {
+            get 
+            {
+                var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+                var newLanguage = currentLanguage == "bg" ? "Български" : "English";
+                return Strings.LanguageLabel + newLanguage;
+            }
+        }
+
+        public string ToggleThemeContent
+        {
+            get 
+            { 
+                var newTheme = this.currentVariation == FluentPalette.ColorVariation.Dark ? Strings.DarkThemeLabel : Strings.LightThemeLabel;
+                return Strings.ThemeLabel + newTheme;
             }
         }
 
@@ -57,15 +85,12 @@ namespace InstaSport.WPF.ViewModels
             this.locationsService = locationsService;
 
             this.NavigationItems = new ObservableCollection<NavigationItem>();
-            this.NavigationItems.Add(new NavigationItem(Strings.LoginNavItemLabel, "&#xf2f6;", nameof(LoginView)));
-            this.NavigationItems.Add(new NavigationItem(Strings.RegisterNavItemLabel, "&#xf234;", nameof(RegistrationView)));
-            this.NavigationItems.Add(new NavigationItem(Strings.SportsNavItemLabel, "&#xf1e3;", nameof(SportsView)));
-            this.NavigationItems.Add(new NavigationItem(Strings.LocationsNavItemLabel, "&#xf3c5;", nameof(LocationsView)));
-            this.NavigationItems.Add(new NavigationItem(Strings.GamesNavItemLabel, "&#xf073;", nameof(GamesView)));
-            this.NavigationItems.Add(new NavigationItem(Strings.CreateGameNavItemLabel, "&#xf271;", nameof(CreateGameView)) { IsVisible = false });
+            this.RefreshNavigationItems();
 
             this.SelectedNavigationItemChangedCommand = new DelegateCommand(OnSelectedNavigationItemChanged);
             this.LogOutCommand = new DelegateCommand(OnLogOut);
+            this.ToggleThemeCommand = new DelegateCommand(OnToggleTheme);
+            this.ToggleLanguageCommand = new DelegateCommand(OnToggleLanguage);
 
             this.regionManager = regionManager;
             this.regionManager.Regions.CollectionChanged += OnRegionsCollectionChanged;
@@ -93,6 +118,81 @@ namespace InstaSport.WPF.ViewModels
                 var newItem = args.AddedItems[0] as NavigationItem;
                 this.regionManager.RequestNavigate(StringConstants.MainRegionName, newItem.View);
             }
+            else if (args.AddedItems.Count == 0 && args.RemovedItems.Count > 0)
+            {
+                var name = regionManager.Regions[StringConstants.MainRegionName].NavigationService.Journal.CurrentEntry.Uri.OriginalString;
+                var parameters = regionManager.Regions[StringConstants.MainRegionName].NavigationService.Journal.CurrentEntry.Parameters;
+                this.lastSelectedView = name;
+                this.lastParameters = parameters;
+            }
+        }
+
+        private void OnToggleLanguage(object obj)
+        {
+            var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+
+            if (currentLanguage == "bg")
+            {
+                this.SetCulture("en");
+            }
+            else
+            {
+                this.SetCulture("bg");
+            }
+        }
+
+        private void SetCulture(string name)
+        {
+            var newCulture = new CultureInfo(name);
+            Thread.CurrentThread.CurrentCulture = newCulture;
+            Thread.CurrentThread.CurrentUICulture = newCulture;
+            LocalizationManager.Manager.Culture = newCulture;
+            this.RefreshNavigationItems();
+            this.RefreshView();
+            this.RaisePropertyChanged(nameof(ToggleLanguageContent));
+        }
+
+        private void RefreshView()
+        {
+            this.regionManager.RequestNavigate(StringConstants.MainRegionName, string.Empty);
+
+            Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
+            {
+                this.regionManager.RequestNavigate(StringConstants.MainRegionName, this.lastSelectedView, lastParameters);
+            }), DispatcherPriority.Background);
+        }
+
+        private void RefreshNavigationItems()
+        {
+            this.NavigationItems.Clear();
+            if (this.Authenticator.CurrentUser == null)
+            {
+                this.NavigationItems.Add(new NavigationItem(Strings.LoginNavItemLabel, "&#xf2f6;", nameof(LoginView)));
+                this.NavigationItems.Add(new NavigationItem(Strings.RegisterNavItemLabel, "&#xf234;", nameof(RegistrationView)));
+            }
+            this.NavigationItems.Add(new NavigationItem(Strings.SportsNavItemLabel, "&#xf1e3;", nameof(SportsView)));
+            this.NavigationItems.Add(new NavigationItem(Strings.LocationsNavItemLabel, "&#xf3c5;", nameof(LocationsView)));
+            this.NavigationItems.Add(new NavigationItem(Strings.GamesNavItemLabel, "&#xf073;", nameof(GamesView)));
+            if (this.Authenticator.CurrentUser != null)
+            {
+                this.NavigationItems.Add(new NavigationItem(Strings.CreateGameNavItemLabel, "&#xf271;", nameof(CreateGameView)));
+            }
+        }
+
+        private void OnToggleTheme(object obj)
+        {
+            if (this.currentVariation == FluentPalette.ColorVariation.Dark)
+            {
+                FluentPalette.LoadPreset(FluentPalette.ColorVariation.Light);
+                this.currentVariation = FluentPalette.ColorVariation.Light;
+            }
+            else
+            {
+                FluentPalette.LoadPreset(FluentPalette.ColorVariation.Dark);
+                this.currentVariation = FluentPalette.ColorVariation.Dark;
+            }
+
+            this.RaisePropertyChanged(nameof(ToggleThemeContent));
         }
 
         private void OnLogOut(object obj)
@@ -109,9 +209,7 @@ namespace InstaSport.WPF.ViewModels
 
         private void AuthenticatorCurrentUserChanged(object? sender, EventArgs e)
         {
-            this.NavigationItems.First(x => x.Title == Strings.LoginNavItemLabel).IsVisible = this.Authenticator.CurrentUser == null;
-            this.NavigationItems.First(x => x.Title == Strings.RegisterNavItemLabel).IsVisible = this.Authenticator.CurrentUser == null;
-            this.NavigationItems.First(x => x.Title == Strings.CreateGameNavItemLabel).IsVisible = this.Authenticator.CurrentUser != null;
+            this.RefreshNavigationItems();
         }
     }
 }

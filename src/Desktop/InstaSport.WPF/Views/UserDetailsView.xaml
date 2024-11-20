@@ -11,15 +11,54 @@
     <UserControl.Resources>
         <converters:RatingsToDoubleConverter x:Key="RatingsToDoubleConverter" />
     </UserControl.Resources>
-    <Grid Width="400" Background="#333" 
+    <Grid Width="400" Background="{telerik:FluentResource ResourceKey=AlternativeBrush}" 
           HorizontalAlignment="Center" 
           VerticalAlignment="Center">
-        <StackPanel Margin="30">
-            <TextBlock Text="{telerik:LocalizableResource Key=RatePlayerTitle}" />
-            <TextBlock Text="{Binding User.FirstName, StringFormat=First Name: {0}}" />
-            <TextBlock Text="{Binding User.LastName, StringFormat=Last Name: {0}}" />
-            <TextBlock Text="{telerik:LocalizableResource Key=RatingLabel}" />
-            <telerik:RadRating IsEnabled="{Binding IsRatingEnabled}"
+        <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <telerik:Label FontSize="30" Margin="0 0 0 30" Grid.ColumnSpan="2" HorizontalAlignment="Center" Style="{StaticResource TitleLabelStyle}" Content="{telerik:LocalizableResource Key=RatePlayerTitle}" />
+            <StackPanel Grid.Row="1">
+                <StackPanel Orientation="Horizontal">
+                    <telerik:Label FontSize="18" Content="{telerik:LocalizableResource Key=FirstNameLabel}" />
+                    <telerik:Label FontSize="18" Content="{Binding User.FirstName}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <telerik:Label FontSize="18" Content="{telerik:LocalizableResource Key=LastNameLabel}" />
+                    <telerik:Label FontSize="18" Content="{Binding User.LastName}" />
+                </StackPanel>
+                <telerik:Label FontSize="18" Content="{telerik:LocalizableResource Key=RatingLabel}" />
+            </StackPanel>
+            <Grid Grid.Row="1"
+              Grid.Column="2"
+              Margin="0 2 2 2"
+              Background="DarkGray"
+              Width="100"
+              Height="100">
+                <Grid.ToolTip>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding User.FirstName}" />
+                        <TextBlock Text=" " />
+                        <TextBlock Text="{Binding User.LastName}" />
+                    </StackPanel>
+                </Grid.ToolTip>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="5">
+                    <telerik:Label FontSize="50" Content="{Binding User.FirstName[0]}" />
+                    <telerik:Label FontSize="50" Content="{Binding User.LastName[0]}" />
+                </StackPanel>
+            </Grid>
+            <telerik:RadRating Grid.Row="2"
+                               Grid.ColumnSpan="2"
+                               HorizontalAlignment="Center"
+                               IsEnabled="{Binding IsRatingEnabled}"
+                               Margin="0 30 0 0"
                 Value="{Binding User.Ratings, Converter={StaticResource RatingsToDoubleConverter}}">
                 <telerik:EventToCommandBehavior.EventBindings>
                     <telerik:EventBinding EventName="ValueChanged"
@@ -27,6 +66,6 @@
                                           PassEventArgsToCommand="True"/>
                 </telerik:EventToCommandBehavior.EventBindings>
             </telerik:RadRating>
-        </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

@@ -11,11 +11,11 @@
     <UserControl.Resources>
         <telerik:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
     </UserControl.Resources>
-    <Grid Width="400" Background="#333"
+    <Grid Width="400" Background="{telerik:FluentResource ResourceKey=AlternativeBrush}"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center">
         <StackPanel Margin="30">
-            <telerik:Label Content="{telerik:LocalizableResource Key=CreateGameTitle}" Style="{StaticResource TitleLabelStyle}" HorizontalAlignment="Center" FontSize="30" Margin="0 0 0 20" />
+            <telerik:Label Content="{telerik:LocalizableResource Key=CreateGameTitle}" Style="{StaticResource TitleLabelStyle}" HorizontalAlignment="Center" Margin="0 0 0 20" />
             <telerik:Label Content="{telerik:LocalizableResource Key=SportLabel}" />
             <telerik:RadComboBox ItemsSource="{Binding Sports}" 
                                  SelectedValue="{Binding Game.SportId}" 
