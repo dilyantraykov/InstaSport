@@ -276,4 +276,7 @@
   <data name="GameDetailsTitle" xml:space="preserve">
     <value>Game Details</value>
   </data>
+  <data name="MyGameLabel" xml:space="preserve">
+    <value>My Game</value>
+  </data>
 </root>

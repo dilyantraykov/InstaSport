@@ -276,4 +276,7 @@
   <data name="GameDetailsTitle" xml:space="preserve">
     <value>Детайли за игра</value>
   </data>
+  <data name="MyGameLabel" xml:space="preserve">
+    <value>Моя игра</value>
+  </data>
 </root>

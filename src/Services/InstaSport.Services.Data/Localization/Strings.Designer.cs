@@ -349,6 +349,15 @@ namespace InstaSport.Services.Data.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My Game.
+        /// </summary>
+        public static string MyGameLabel {
+            get {
+                return ResourceManager.GetString("MyGameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password:.
         /// </summary>
         public static string PasswordLabel {

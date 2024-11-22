@@ -61,6 +61,7 @@
                                 <Setter.Value>
                                     <DataTemplate>
                                         <telerik:RadGlyph Font="FontAwesome" 
+                                                          Margin="0 2 0 0"
                                           Glyph="{Binding}"
                                           HorizontalAlignment="Center" 
                                           VerticalAlignment="Center"/>
@@ -69,8 +70,10 @@
                             </Setter>
                         </Style>
                     </StackPanel.Resources>
-                    <telerik:RadNavigationViewItem Icon="&#xf042;" Content="{Binding ToggleThemeContent}" Command="{Binding ToggleThemeCommand}" />
-                    <telerik:RadNavigationViewItem Icon="&#xf1ab;" Content="{Binding ToggleLanguageContent}" Command="{Binding ToggleLanguageCommand}" />
+                    <StackPanel Margin="0 0 0 5">
+                        <telerik:RadNavigationViewItem Icon="&#xf042;" Content="{Binding ToggleThemeContent}" Command="{Binding ToggleThemeCommand}" />
+                        <telerik:RadNavigationViewItem Icon="&#xf1ab;" Content="{Binding ToggleLanguageContent}" Command="{Binding ToggleLanguageCommand}" />
+                    </StackPanel>
                     <StackPanel Visibility="{Binding Authenticator.IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel Orientation="Horizontal"  Margin="20 5">
                             <TextBlock Text="{telerik:LocalizableResource Key=LoggedInAsLabel}" />

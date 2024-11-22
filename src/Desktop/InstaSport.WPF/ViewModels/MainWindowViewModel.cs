@@ -57,8 +57,9 @@ namespace InstaSport.WPF.ViewModels
             get 
             {
                 var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+                this.RaisePropertyChanged(nameof(ToggleThemeContent));
                 var newLanguage = currentLanguage == "bg" ? "Български" : "English";
-                return Strings.LanguageLabel + newLanguage;
+                return newLanguage;
             }
         }
 
@@ -67,7 +68,7 @@ namespace InstaSport.WPF.ViewModels
             get 
             { 
                 var newTheme = this.currentVariation == FluentPalette.ColorVariation.Dark ? Strings.DarkThemeLabel : Strings.LightThemeLabel;
-                return Strings.ThemeLabel + newTheme;
+                return newTheme;
             }
         }
 

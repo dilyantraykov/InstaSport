@@ -12,6 +12,7 @@
         <telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:SportToImageConverter x:Key="SportToImageConverter" />
         <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+        <converters:AuthenticatorAndPlayersMultiValueConverter x:Key="AuthenticatorAndPlayersMultiValueConverter" />
         <Style TargetType="telerik:CarouselItem" BasedOn="{StaticResource CarouselItemStyle}">
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="Padding" Value="20" />
@@ -45,6 +46,16 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Image Width="200" Height="200" Grid.ColumnSpan="2" Source="{Binding Sport.Name, Converter={StaticResource SportToImageConverter}}" />
+                        <telerik:Label Content="{telerik:LocalizableResource Key=MyGameLabel}"
+                                       VerticalAlignment="Top"
+                                       Background="{telerik:FluentResource ResourceKey=AccentBrush}">
+                            <telerik:Label.Visibility>
+                                <MultiBinding Converter="{StaticResource AuthenticatorAndPlayersMultiValueConverter}">
+                                    <Binding Path="DataContext.Authenticator.CurrentUser" RelativeSource="{RelativeSource AncestorType=telerik:RadWindow}" />
+                                    <Binding Path="Players" />
+                                </MultiBinding>
+                            </telerik:Label.Visibility>
+                        </telerik:Label>
                         <telerik:Label HorizontalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding Location.Name}" />
                         <telerik:Label HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" Content="{Binding Status, Converter={StaticResource EnumDescriptionConverter}}" />
                         <telerik:Label Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="{Binding StartingDateTime}" ContentStringFormat="dd.MM.yyyy HH:mm" />

@@ -54,7 +54,10 @@ namespace InstaSport.WPF.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            var games = this.gamesService.GetAll().ToDto();
+            var games = this.gamesService
+                .GetAll()
+                .OrderByDescending(g => g.StartingDateTime)
+                .ToDto();
             var sportFilter = navigationContext.Parameters["Sport"] as SportDto;
             if (sportFilter != null)
             {
