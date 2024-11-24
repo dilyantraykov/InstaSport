@@ -484,7 +484,7 @@ namespace InstaSport.Services.Data.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username \ Email:.
+        ///   Looks up a localized string similar to Username / Email:.
         /// </summary>
         public static string UsernameEmailLabel {
             get {

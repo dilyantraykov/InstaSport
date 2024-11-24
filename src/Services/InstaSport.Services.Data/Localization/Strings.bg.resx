@@ -145,7 +145,7 @@
     <value>Вход</value>
   </data>
   <data name="UsernameEmailLabel" xml:space="preserve">
-    <value>Потребителско име \ имейл:</value>
+    <value>Потребителско име / имейл:</value>
   </data>
   <data name="LoginButton" xml:space="preserve">
     <value>Влез</value>
