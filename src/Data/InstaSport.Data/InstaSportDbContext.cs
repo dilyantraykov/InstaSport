@@ -1,10 +1,8 @@
 ﻿namespace InstaSport.Data
 {
-    using System;
-    using System.Linq;
-    using Common.Models;
     using InstaSport.Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using System;
 
     public class InstaSportDbContext : DbContext
     {

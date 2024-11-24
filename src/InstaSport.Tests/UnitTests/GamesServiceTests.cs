@@ -3,7 +3,7 @@ using InstaSport.Data.Models;
 using InstaSport.Services.Data;
 using Moq;
 
-namespace InstaSport.Tests;
+namespace InstaSport.Tests.UnitTests;
 
 [TestFixture]
 public class GamesServiceTests

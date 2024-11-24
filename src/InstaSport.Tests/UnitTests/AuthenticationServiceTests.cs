@@ -7,7 +7,7 @@ using InstaSport.Services.Data.Localization;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 
-namespace InstaSport.Tests;
+namespace InstaSport.Tests.UnitTests;
 
 [TestFixture]
 public class AuthenticationServiceTests
@@ -48,8 +48,8 @@ public class AuthenticationServiceTests
             .AsQueryable());
 
         // Act & Assert
-        var exception = Assert.Throws<InvalidPropertyException>(() => 
-        authService.Register(existingUserName, "email@example.com", "FirstName", 
+        var exception = Assert.Throws<InvalidPropertyException>(() =>
+        authService.Register(existingUserName, "email@example.com", "FirstName",
         "LastName", "password", "password"));
 
         Assert.AreEqual(Strings.ExistingUserNameExceptionMessage, exception.Message);
@@ -114,7 +114,7 @@ public class AuthenticationServiceTests
     {
         // Arrange
         var user = new User
-        { 
+        {
             UserName = "username",
             PasswordHash = "hashedPassword"
         };
@@ -125,7 +125,7 @@ public class AuthenticationServiceTests
             .AsQueryable());
 
         mockPasswordHasher
-            .Setup(hasher => hasher.VerifyHashedPassword(user, 
+            .Setup(hasher => hasher.VerifyHashedPassword(user,
             "hashedPassword", "password"))
             .Returns(PasswordVerificationResult.Success);
 

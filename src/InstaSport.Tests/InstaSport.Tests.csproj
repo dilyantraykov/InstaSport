@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.18362.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="3.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.36" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="NUnit" Version="3.13.3" />
@@ -20,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Data\InstaSport.Data.Models\InstaSport.Data.Models.csproj" />
+    <ProjectReference Include="..\Desktop\InstaSport.WPF\InstaSport.WPF.csproj" />
     <ProjectReference Include="..\Services\InstaSport.Services.Data\InstaSport.Services.Data.csproj" />
   </ItemGroup>
 
